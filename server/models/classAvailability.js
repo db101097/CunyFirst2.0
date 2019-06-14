@@ -3,42 +3,44 @@ const Model = Sequelize.Model;
 
 module.exports = function(sequelize) {
 
-        class classAvailablility extends Model {}
-        classAvailablility.init({
+    class classAvailablility extends Model {}
+    classAvailablility.init({
 
-            capacity:{
-                type: Sequelize.Integer,
-                allowNull: false,
-                validate:{
-                    isInt: true,           
-                    notEmpty: true
-                }
-            },
-            enrollmentTotal:{
-                type: Sequelize.Integer,
-                allowNull: false,
-                validate:{
-                    isInt: true,           
-                    notEmpty: true
-                }
-            },
-            waitListCapacity:{
-                type: Sequelize.Integer,
-                allowNull: false,
-                validate:{
-                    isInt: true,           
-                    notEmpty: true
-                }
-            },
-            waitListTotal:{
-                type: Sequelize.Integer,
-                allowNull: false,
-                validate:{
-                    isInt: true,           
-                    notEmpty: true
-                }
+        capacity:{
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate:{
+                isInt: true,           
+                notEmpty: true
             }
         },
-            {sequelize,modelName: 'classAvailability',timestamps: false}
-        );
+        enrollmentTotal:{
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate:{
+                isInt: true,           
+                notEmpty: true
+            }
+        },
+        waitListCapacity:{
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate:{
+                isInt: true,           
+                notEmpty: true
+            }
+        },
+        waitListTotal:{
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate:{
+                isInt: true,           
+                notEmpty: true
+            }
+        }
+    },
+        {sequelize,modelName: 'classAvailability',timestamps: false}
+    );
+
+    return classAvailablility
 }
