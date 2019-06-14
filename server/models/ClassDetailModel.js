@@ -28,7 +28,8 @@ module.exports = function(sequelize) {
                 min: 0,
                 allowNull: false,
                 notEmpty: true,
-                max: 5 
+                max: 5,
+                isInt: true
             }
         },
         dates:{
