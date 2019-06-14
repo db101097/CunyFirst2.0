@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1> Already Better than CunyFirst </h1>
+        <h1 style={{color: 'black'}}> Already Better than CunyFirst </h1>
         <Calendar />
       </header>
     </div>
