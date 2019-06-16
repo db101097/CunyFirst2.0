@@ -7,7 +7,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+// const routes = require('./routes');
+
+
 
 
 // Taken from StackOverflow https://stackoverflow.com/a/12008719
@@ -29,9 +31,12 @@ app.use(function (req, res, next) {
    // Pass to next layer of middleware
    next();
 });
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
+// app.use('/api/student',student)
+require('./routes/student')(app)
 module.exports = app;
