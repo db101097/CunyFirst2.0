@@ -10,27 +10,32 @@ class Login extends Component {
     render() {
 
   return (
-
-    // <div className="title">
-
-    //     <h1> CUNYFirst Login Page </h1>
-
-    // </div>
-
     <div className="App">
-    <div className="bg"></div>
-    <div className="bgl"></div>
-    <div className="top"></div>
-
-
-<div id="id01" class="modal">
-  
-    <div class="container">
-
-    <button className="ui button"><a href="http://www.cuny.edu/website/terms.html" target='blank'>Terms of Use</a></button>
-    <button className="ui button"><a href="http://www.cuny.edu/website/security.html" target='blank'>Security Policy</a></button>
-    <button className="ui button"><a href="http://cuny.edu/accessibility" target='blank'>IT Accessibility</a></button>
-    <button className="ui button"><a href="http://www.cuny.edu/about/resources/helpdesks.html" target='blank'>Tech Resources & Help Desks</a></button>
+      <div className="bg"></div>
+      <div className="bgl"></div>
+      <div className="top"></div>
+        <div id="id01" class="modal">
+          <div class="container">
+            <button className="ui button">
+              <a href="http://www.cuny.edu/website/terms.html" target='blank'>
+                Terms of Use
+              </a>
+            </button>
+            <button className="ui button">
+              <a href="http://www.cuny.edu/website/security.html" target='blank'>
+                Security Policy
+              </a>
+            </button>
+            <button className="ui button">
+              <a href="http://cuny.edu/accessibility" target='blank'>
+                IT Accessibility
+              </a>
+            </button>
+            <button className="ui button">
+              <a href="http://www.cuny.edu/about/resources/helpdesks.html" target='blank'>
+                Tech Resources & Help Desks
+              </a>
+            </button>
 
     <h2> Log in with your CUNY Login credentials(CUNYfirst Username@login.cuny.edu and CUNYfirst Password) </h2>
 
@@ -57,7 +62,7 @@ class Login extends Component {
 </div>
 
     <header className="pic">
-        <img src="https://ssologin.cuny.edu/images/cuny-logo.jpg"></img>
+        <img src="https://ssologin.cuny.edu/images/cuny-logo.jp" alt="CUNY First Logo"></img>
     </header>
 
 
