@@ -5,12 +5,23 @@ const saltRounds = 10;
 const constraints = {
   from: {
     email: true
+  },
+  password: {
+    presence: true,
+    regex: {
+        pattern: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}',
+        message: "Must contain a capital, lowercase, and number"
+      },
+    length: {
+      minimum: 8,
+      message: "must be at least 6 characters"
+    }
   }
 };
 
 module.exports = function(app, Student){
 	app.get("/api/student",(req,res) => {
-		return res.send("sdfsd")
+		Student.findAll().then(student => res.status(200).json({'payload':student}))
 	})
 
 	app.post("/api/student/register",async (req,res) => {
