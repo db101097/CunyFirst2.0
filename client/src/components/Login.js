@@ -12,12 +12,16 @@ const Login = () => {
     // </div>
 
     <div className="App">
+    <div className="bg"></div>
+    <div className="bgl"></div>
+    <div className="top"></div>
+
 
 <div id="id01" class="modal">
   
     <div class="container">
 
-    <button className="ui button"><Link to='/'>Home</Link></button>
+    <button className="ui button"><Link to='/'>Terms of Use</Link></button>
     <h2> Log in with your CUNY Login credentials(CUNYfirst Username@login.cuny.edu and CUNYfirst Password) </h2>
 
     <h3> Please input your CUNY email</h3>
@@ -35,6 +39,9 @@ const Login = () => {
     </button>
       <br></br>
     <span class="psw"><br></br> <a href="#">Forgot your password?</a></span>
+     <br></br>
+     <br></br>
+     If you do not have a CUNYfirst account, see the <a href="http://www2.cuny.edu/about/administration/offices/cis/cuny-login-faq#cuny_login_guest" target="_blank">FAQs</a>
     </div>
 
 </div>
