@@ -1,84 +1,105 @@
 import React, { Component } from 'react';
-import '../styles/login.css';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import logo from '../images/solocunylogo.png';
+import '../styles/register.css';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: ""
     }
 
-    render() {
+    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);  // when user presses enter to submit
+    this.handleHomeClick = this.handleHomeClick.bind(this);
+  }
 
-  return (
-    <div className="App">
-      <div className="bg"></div>
-      <div className="bgl"></div>
-      <div className="top"></div>
-        <div id="id01" class="modal">
-          <div class="container">
-            <button className="ui button">
-              <a href="http://www.cuny.edu/website/terms.html" target='blank'>
-                Terms of Use
-              </a>
-            </button>
-            <button className="ui button">
-              <a href="http://www.cuny.edu/website/security.html" target='blank'>
-                Security Policy
-              </a>
-            </button>
-            <button className="ui button">
-              <a href="http://cuny.edu/accessibility" target='blank'>
-                IT Accessibility
-              </a>
-            </button>
-            <button className="ui button">
-              <a href="http://www.cuny.edu/about/resources/helpdesks.html" target='blank'>
-                Tech Resources & Help Desks
-              </a>
-            </button>
+  handleEmailInput = (e) => {
+    this.setState({email: e.target.value});
+  }
 
-    <h2> Log in with your CUNY Login credentials(CUNYfirst Username@login.cuny.edu and CUNYfirst Password) </h2>
+  handlePasswordInput = (e) => {
+    this.setState({password: e.target.value});
+  }
 
-    <h3> Please input your CUNY email</h3>
-      <div className="ui input error">
-            <input type="text" placeholder="CUNY email" name="email"></input>
-        </div>        <br></br>
-    <h4> Please enter your password </h4>
-      <div className="ui input">
-      <input type="password" placeholder="Enter Password" name="password" required></input>
+  handleLogin = (event) => {
+    console.log(this.state);
+
+    // api call done here
+  }
+
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      console.log(this.state);
+
+      // api call done here
+    }
+  }
+
+  handleHomeClick = (event) => {
+    window.location.replace('/');
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img className="ui small image" src={logo} alt="logo" style={{marginBottom: '1%'}}/>
+          <div style={{width: '25%'}}>
+            <div className="ui middle aligned center aligned grid">
+              <div className="column">
+                <h2 className="ui black image header">
+                  <div className="content">
+                    Register Your Account
+                  </div>
+                </h2>
+                <form className="ui large form" onKeyPress={this.handleKeyPress}>
+                  <div className="ui stacked segment">
+                    <div className="field">
+                      <div className="ui left icon input">
+                        <i className="at icon"></i>
+                        <input
+                          type="text"
+                          name="Email"
+                          placeholder="Email"
+                          onChange={this.handleEmailInput}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <div className="ui left icon input">
+                        <i className="lock icon"></i>
+                        <input
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={this.handlePasswordInput}
+                        />
+                      </div>
+                    </div>
+                    <button className="ui fluid large submit button" onClick={this.handleLogin}>Login</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <button
+              className="ui fluid large submit button"
+              style={{marginTop: '2%'}}
+              onClick={this.handleHomeClick}
+            >
+              Go Back Home
+            </button>
+          </div>
+        </div>
       </div>
-        <br></br>
-        <br></br>
-    <button class="ui button" type="submit">
-      Login
-    </button>
-      <br></br>
-    <span class="psw"><br></br> <a href="#">Forgot your password?</a></span>
-     <br></br>
-     <br></br>
-     If you do not have a CUNYfirst account, see the <a href="http://www2.cuny.edu/about/administration/offices/cis/cuny-login-faq#cuny_login_guest" target="_blank">FAQs</a>
-    </div>
-
-</div>
-
-    <header className="pic">
-        <img src="https://ssologin.cuny.edu/images/cuny-logo.jp" alt="CUNY First Logo"></img>
-    </header>
-
-
-      <header className="App-title">
-
-        <h1> CUNYFirst Login Page </h1>
-
-      </header>
-
-      <header className="App-header">
-
-      </header>
-    </div>
-
-  );
-}
+    );
+  }
 }
 
 export default Login;
