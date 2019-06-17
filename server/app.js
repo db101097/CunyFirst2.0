@@ -4,11 +4,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 // const routes = require('./routes');
-
-const scheduleRouter=require("./routes/schedule")
-app.use('api/schedule',scheduleRouter)
 //require('./routes/schedule')(app)
 
+const models = require('./models/index');
 
 // Taken from StackOverflow https://stackoverflow.com/a/12008719
 app.use(function (req, res, next) {
@@ -34,7 +32,6 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-
-require('./routes/student')(app)
-
+const scheduleRoutes = require('./routes/schedule')(app,models['Class'],models['meetInfo'],models['schedule'])
+//const waitListRoutes = require('./routes/waitList')(models['waitList'],models['classAvailability'],models['Class'],models['student'],app)
 module.exports = app;
