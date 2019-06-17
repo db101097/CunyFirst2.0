@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { registerThunk } from '../thunks';
+import { connect } from 'react-redux';
 import logo from '../images/cunylogo.png';
 import '../styles/register.css';
 
@@ -67,8 +69,9 @@ class Register extends Component {
 
   handleSignUp = () => {
     console.log(this.state);
+    let info = this.state;
 
-    // api call done here
+    this.props.register(info);
   }
 
   render(){
@@ -152,7 +155,7 @@ class Register extends Component {
                         />
                       </div>
                     </div>
-                    <button className="ui fluid large submit button" onClick={this.handleSignUp}>Register</button>
+                    <div className="ui fluid large submit button" onClick={this.handleSignUp}>Register</div>
                   </div>
                 </form>
               </div>
@@ -165,4 +168,10 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (info) => dispatch(registerThunk(info))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Register);
