@@ -9,8 +9,8 @@ const app = express();
 const bodyParser = require('body-parser');
 // const routes = require('./routes');
 
-const Sequelize = require('../sequelize')
-const models = require("../models/index")
+const Sequelize = require('./sequelize')
+const models = require("./models/index")
 
 
 // Taken from StackOverflow https://stackoverflow.com/a/12008719

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const validate = require("validate.js");
-
+const jwt = require('jsonwebtoken')
 const saltRounds = 10;
 const constraints = {
   from: {
@@ -8,7 +8,7 @@ const constraints = {
   }
 };
 
-module.exports = function(app){
+module.exports = function(app, Student){
 	app.get("/api/student",(req,res) => {
 		return res.send("sdfsd")
 	})
@@ -57,7 +57,11 @@ module.exports = function(app){
 		Student.create(req.body)
 		.then(student => {
 
-			res.status(200).json({"message":"success"})
+			let token = jwt.sign({
+			  data: student.email
+			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
+			// console.log(token)
+			res.status(200).json({"payload":token})
 
 		}).catch(err => {
 
@@ -99,7 +103,10 @@ module.exports = function(app){
 
 
 			if(result){
-				res.status(200).json({"message":"Autheticated"})
+				let token = jwt.sign({
+				  data: student[0].email
+				}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
+				res.status(200).json({"payload":token})
 
 			}
 			else{
