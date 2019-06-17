@@ -62,16 +62,13 @@ class Register extends Component {
   handleKeyPress = (event) => {
     if(event.key === 'Enter'){
       console.log(this.state);
-
-      // api call done here
+      this.props.register(this.state);
     }
   }
 
   handleSignUp = () => {
     console.log(this.state);
-    let info = this.state;
-
-    this.props.register(info);
+    this.props.register(this.state);
   }
 
   render(){

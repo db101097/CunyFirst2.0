@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { loginThunk } from '../thunks';
+import { connect } from 'react-redux';
 import logo from '../images/solocunylogo.png';
 import '../styles/register.css';
 
@@ -29,15 +31,13 @@ class Login extends Component {
 
   handleLogin = (event) => {
     console.log(this.state);
-
-    // api call done here
+    this.props.login(this.state);
   }
 
   handleKeyPress = (event) => {
     if(event.key === 'Enter'){
       console.log(this.state);
-
-      // api call done here
+      this.props.login(this.state);
     }
   }
 
@@ -83,7 +83,7 @@ class Login extends Component {
                         />
                       </div>
                     </div>
-                    <button className="ui fluid large submit button" onClick={this.handleLogin}>Login</button>
+                    <div className="ui fluid large submit button" onClick={this.handleLogin}>Login</div>
                   </div>
                 </form>
               </div>
@@ -102,4 +102,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (info) => dispatch(loginThunk(info))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);
