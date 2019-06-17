@@ -7,8 +7,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const routes = require('./routes');
-
+const models = require('./models/index');
 
 // Taken from StackOverflow https://stackoverflow.com/a/12008719
 app.use(function (req, res, next) {
@@ -34,4 +33,5 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
+const waitListRoutes = require('./routes/waitList')(models['waitList'],models['classAvailability'],models['Class'],models['student'],app)
 module.exports = app;
