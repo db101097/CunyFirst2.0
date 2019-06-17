@@ -23,6 +23,16 @@ Schedule.belongsTo(Student)
 Waitlist.belongsTo(Class)
 Waitlist.belongsTo(Student)
 
-// sequelize.sync()
+sequelize.sync()
 
-module.exports = [sequelize, Student]
+let models = {
+	classAvailability:ClassAvailability,
+	classDetail:ClassDetail,
+	Class:Class ,
+	meetInfo:MeetInfo,
+	schedule:Schedule,
+	student:Student,
+	waitList:Waitlist 
+}
+
+module.exports = models;

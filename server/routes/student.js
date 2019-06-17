@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const validate = require("validate.js");
-const Sequelize = require('../sequelize')
-const Student = Sequelize.import("../models/student")
+
 const saltRounds = 10;
 const constraints = {
   from: {
@@ -58,7 +57,7 @@ module.exports = function(app){
 		Student.create(req.body)
 		.then(student => {
 
-			res.status(200).json({"payload":student})
+			res.status(200).json({"message":"success"})
 
 		}).catch(err => {
 
@@ -101,6 +100,7 @@ module.exports = function(app){
 
 			if(result){
 				res.status(200).json({"message":"Autheticated"})
+
 			}
 			else{
 				res.status(400).json({"message":"Wrong email/password"})
@@ -108,8 +108,5 @@ module.exports = function(app){
 			
 		})
 
-
-
-		// res.status(200).json({"message":"login"})
 	})
 }
