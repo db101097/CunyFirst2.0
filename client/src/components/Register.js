@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import logo from '../images/cunylogo.png';
+import '../styles/register.css';
 
 class Register extends Component {
   constructor(props){
@@ -73,6 +75,7 @@ class Register extends Component {
     return(
       <div className="App">
         <div className="App-header">
+          <img className="ui medium image" src={logo} alt="logo" style={{marginBottom: '1%'}}/>
           <div style={{width: '25%'}}>
             <div className="ui middle aligned center aligned grid">
               <div className="column">
@@ -149,12 +152,12 @@ class Register extends Component {
                         />
                       </div>
                     </div>
-                    <button className="ui fluid large black submit button" onClick={this.handleSignUp}>Register</button>
+                    <button className="ui fluid large submit button" onClick={this.handleSignUp}>Register</button>
                   </div>
                 </form>
               </div>
             </div>
-            <div className="ui fluid large black submit button" onClick={this.handleHomeClick}>Go Back Home</div>
+            <button className="ui fluid large submit button" style={{marginTop: '2%'}} onClick={this.handleHomeClick}>Go Back Home</button>
           </div>
         </div>
       </div>
