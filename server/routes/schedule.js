@@ -8,7 +8,7 @@ function createResponse(code,body){
     return response
 }
 
- async function findClass (Class,meetInfo,classId){
+async function findClass (Class,meetInfo,classId){
     try{
         let result=await Class.findOne({
             where:{
@@ -16,7 +16,6 @@ function createResponse(code,body){
             },
             include:[meetInfo]
         })
-
          if(result===null || (result!=null && result.length===0)){
              return ('empty')
          }else{
@@ -93,21 +92,29 @@ async function deleteClass(Student,schedule,Class,cid,sid){
 module.exports=function(app,Class,meetInfo,schedule,Student){
     //get all class schedule
     //class schedule include attributes from classes and meetingInfo
-    app.get('/',async(req,res,next)=>{
-    //res.json(dummyclass);
+    app.get('/getSchedule/:studentId',async(req,res,next)=>{
         try{
-            //SELECT * from classes 
-            const classes=await Class.findAll();
-            const meetInfo=await meetInfo.findAll();  
-            res.send(classes);
-            res.send(meetInfo);
+            let sid=req.params.studentId
+            let classes=await schedule.findAll({
+                where:{
+                    studentId:sid
+                }
+            })
+            console.log(classes)
+            if(classes===undefined||classes===null){
+                res.status(400).send("schedule does not exist")
+            }
+            else{
+                res.status(200).send(classes)
+            }
         }catch(error){
-            res.send(error);
+            console.log(error)
+            res.status(400).send("could not get schedule")
         }
     })
     //route to add classes to schedule
     //when adding should nt conflict with other classes time
-    app.post('/addClass/:classId',async(req,res,next)=>{
+    app.post('/addClass/:classId',async(req,res)=>{
         const sid=req.body.studentId;
         const cid=req.params.classId;
         let result=await insertClass(schedule,Student,meetInfo,Class,sid,cid);
@@ -145,25 +152,11 @@ module.exports=function(app,Class,meetInfo,schedule,Student){
             
             }
             //add class will handle if class exist        
-            res.redirect('/addClass/:classId')
-
-
+            //res.redirect('/addClass/:classId')
         }catch(error){
             res.send('error')
         }
     })
 }
-
-//     try{
-//         let updateClass=await Classes.update(req.body,{
-//             where:{id:req.params.id},
-//             returning:true,
-//             plain:true,
-//         })
-//         res.json(updateClass[1]);
-//     }catch(error){
-//         next(error);
-//     }
-// })
 
 
