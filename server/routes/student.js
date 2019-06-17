@@ -15,9 +15,6 @@ module.exports = function(app){
 	})
 
 	app.post("/api/student/register",async (req,res) => {
-
-		
-
 		let email = req.body.email
 		let firstName = req.body.firstName
 		let lastName = req.body.lastName
@@ -28,7 +25,6 @@ module.exports = function(app){
 		if(password != passwordConfirm){
 			res.status(400).json({"message":"Passwords do not match"})
 		}
-
 
 		// Interestingly, valid emails get returned as undefined
 		if(validate({from:email},constraints) != undefined){

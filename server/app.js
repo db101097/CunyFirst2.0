@@ -1,15 +1,13 @@
 'use strict';
 
-//
-// app.js
-//
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 // const routes = require('./routes');
 
-
+const scheduleRouter=require("./routes/schedule")
+app.use('api/schedule',scheduleRouter)
+//require('./routes/schedule')(app)
 
 
 // Taken from StackOverflow https://stackoverflow.com/a/12008719
@@ -37,6 +35,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-// app.use('/api/student',student)
 require('./routes/student')(app)
+
 module.exports = app;
