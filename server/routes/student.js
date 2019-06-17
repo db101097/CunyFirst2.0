@@ -5,17 +5,6 @@ const saltRounds = 10;
 const constraints = {
   from: {
     email: true
-  },
-  password: {
-    presence: true,
-    regex: {
-        pattern: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}',
-        message: "Must contain a capital, lowercase, and number"
-      },
-    length: {
-      minimum: 8,
-      message: "must be at least 6 characters"
-    }
   }
 };
 
