@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles/login.css';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+class Login extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+
   return (
 
     // <div className="title">
@@ -30,11 +36,11 @@ const Login = () => {
 
     <h3> Please input your CUNY email</h3>
       <div className="ui input error">
-            <input type="text" placeholder="CUNY email"></input>
+            <input type="text" placeholder="CUNY email" name="email"></input>
         </div>        <br></br>
     <h4> Please enter your password </h4>
       <div className="ui input">
-      <input type="password" placeholder="Enter Password" name="psw" required></input>
+      <input type="password" placeholder="Enter Password" name="password" required></input>
       </div>
         <br></br>
         <br></br>
@@ -67,6 +73,7 @@ const Login = () => {
     </div>
 
   );
+}
 }
 
 export default Login;
