@@ -10,12 +10,12 @@ const constraints = {
 
 module.exports = function(app, Student){
 	app.get("/api/student",(req,res) => {
-		return res.send("sdfsd")
+		Student.findAll().then(student => res.status(200).json({'payload':student}))
 	})
 
 	app.post("/api/student/register",async (req,res) => {
 
-		
+
 
 		let email = req.body.email
 		let firstName = req.body.firstName
@@ -53,7 +53,7 @@ module.exports = function(app, Student){
 		// below query easier. But if need access to the original password
 		// then use passwordConfirm
 		req.body.password = hashPassword
-		// How to easily create an insert :) 
+		// How to easily create an insert :)
 		Student.create(req.body)
 		.then(student => {
 
@@ -68,18 +68,18 @@ module.exports = function(app, Student){
 			res.status(400).json({"message":err})
 
 		})
-		
+
 		// Shouldn't reach here but giving a return anyways
 		// res.status(400).json({"message":"Unknown error"})
-		
-		
+
+
 	})
 
 	app.post("/api/student/login", async (req, res) => {
 
 
 		let email = req.body.email
-		let password = req.body.password 
+		let password = req.body.password
 
 		// let hashPassword = await bcrypt.hash(password, saltRounds).then()
 		// console.log(hashPassword);
@@ -98,7 +98,7 @@ module.exports = function(app, Student){
 				// To make sure we don't call the functions below
 				return
 			}
-			let result = await bcrypt.compare(password, student[0].password) 
+			let result = await bcrypt.compare(password, student[0].password)
 			// console.log(result);
 
 
@@ -112,7 +112,7 @@ module.exports = function(app, Student){
 			else{
 				res.status(400).json({"message":"Wrong email/password"})
 			}
-			
+
 		})
 
 	})
