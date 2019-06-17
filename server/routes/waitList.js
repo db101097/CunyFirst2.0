@@ -1,3 +1,9 @@
+/*
+     Helper function that will return the capacity of the class 
+     it will query the classAvailability model to find the waitlist
+     capacity of the class. It requires the classAvailability model
+     and class id as param in order to return the capacity
+*/
 function findClassCapacity(classAvailability,cid){
         classAvailability.findOne({
                 where:{
@@ -17,6 +23,12 @@ function findClassCapacity(classAvailability,cid){
         })
 }
 
+
+/*
+     Helper function that will return a boolean if a student is already on the
+     list. It takes a list and the id of the student. It will iterate through the
+     list and return true if the student is on the list and false if they are not.
+*/
 function isInList(list,sid){
         for(let i=0;i<list.length;i++){
            if(list[i].studentId===sid){
@@ -27,6 +39,24 @@ function isInList(list,sid){
         return false;
 }
 
+
+/*
+     Helper function that will update the positions of everyone on the list.
+     When someone is removed from the list that means others below them must
+     move up the list. To do so everyone beneath that person will have their
+     position decremented by 1. 
+
+     1 2 3 4 5 6
+
+     After 4 get removed
+     1 2 3 5 6
+
+     After moveUpList function is called
+     1 2 3 4 5
+
+     Takes the waitList model , the position of the person removed and the class id
+     as params
+*/
 function moveUpList(waitList,position,cid){
         waitList.findAll({
             where:{
@@ -43,8 +73,15 @@ function moveUpList(waitList,position,cid){
 }
 
 
+
 module.exports=function(waitList,classAvailability,Class,student,app){
 
+
+/*
+        The getList route will gett all students on the list.The class id is 
+        provided as a url param.Using this info the database will be queried 
+        to find all rows that matches the class id.
+*/
         app.get('/getList/:classId',function(req,res){
                 let cid = req.params.classId;
                 waitList.findAll({ 
@@ -69,6 +106,9 @@ module.exports=function(waitList,classAvailability,Class,student,app){
                 })
         });
 
+
+
+// test routes to add students and classes to the database 
         app.post('/addStudent',async function(req,res){
                 console.log('here')
                 let f=req.body.firstName
@@ -101,6 +141,21 @@ module.exports=function(waitList,classAvailability,Class,student,app){
                 res.status(200).send('class added')
         })
 
+
+
+/*
+        The joinList route will add a student to the list The class id is 
+        provided as a url param and the student id will be provided in the 
+        request body. 
+        expects:
+        {
+            "studentId": the id of the student
+        }
+
+        Using this info the database will be queried to find the student
+        add that student to the list if the list is not at capacity and 
+        the student is not alread on the list
+*/
         app.post('/joinList/:classId',function(req,res){
                 let cid = req.params.classId;
                 let sid=req.body.studentId;
@@ -137,6 +192,21 @@ module.exports=function(waitList,classAvailability,Class,student,app){
                 })
         });
 
+
+
+
+/*
+        This route will remove a student from the waitlist of some class
+        The class id is provided as a url param and the student id will
+        be provided in the request body. 
+        expects:
+        {
+            "studentId": the id of the student
+        }
+
+        Using this info the database will be queried to find the student
+        delete that student and change the other students postions accordingly
+*/
         app.delete('/leaveList/:classId',function(req,res){
                 let cid = req.params.classId;
                 let sid=req.body.studentId;
@@ -147,18 +217,18 @@ module.exports=function(waitList,classAvailability,Class,student,app){
                     }
                 }).then((results)=>{
                     if(results===null || results===undefined){
-                        res.status(200).send('That college does not exist')
+                        res.status(200).send('The list does not exist')
                     }
                     else if (results.length===0){
-                        console.log('length',results.length)
+                        //the student/class combo was not found 
                         res.status(400).send('The list or the student could not be found')
                     }
                     else{
                         //save the postion of the student
-                        // 1 2 3 4 5 6 7 8 9 
-                        // 1 2 3 4 6 7 8 9
                         let currPosition=results.position;
+                        //delete the student from the list
                         results.destroy()
+                        //retrieve the list and subtract 1 from position from every entry below the one just deleted
                         moveUpList(waitList,currPosition,cid)
                         res.status(200).send('Successfully Deleted');
                     }
