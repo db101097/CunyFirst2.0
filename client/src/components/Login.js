@@ -21,7 +21,11 @@ const Login = () => {
   
     <div class="container">
 
-    <button className="ui button"><Link to='/'>Terms of Use</Link></button>
+    <button className="ui button"><a href="http://www.cuny.edu/website/terms.html" target='blank'>Terms of Use</a></button>
+    <button className="ui button"><a href="http://www.cuny.edu/website/security.html" target='blank'>Security Policy</a></button>
+    <button className="ui button"><a href="http://cuny.edu/accessibility" target='blank'>IT Accessibility</a></button>
+    <button className="ui button"><a href="http://www.cuny.edu/about/resources/helpdesks.html" target='blank'>Tech Resources & Help Desks</a></button>
+
     <h2> Log in with your CUNY Login credentials(CUNYfirst Username@login.cuny.edu and CUNYfirst Password) </h2>
 
     <h3> Please input your CUNY email</h3>
