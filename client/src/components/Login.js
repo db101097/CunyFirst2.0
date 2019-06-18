@@ -102,10 +102,17 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    currentUser: state.currentUser
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (info) => dispatch(loginThunk(info))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
