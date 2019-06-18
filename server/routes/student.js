@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const validate = require("validate.js");
 const Sequelize = require('../sequelize')
 const Student = Sequelize.import("../models/student")
+const jwt = require('jsonwebtoken')
 const saltRounds = 10;
 const constraints = {
   from: {
@@ -9,12 +10,15 @@ const constraints = {
   }
 };
 
-module.exports = function(app){
+module.exports = function(app, Student){
 	app.get("/api/student",(req,res) => {
-		return res.send("sdfsd")
+		Student.findAll().then(student => res.status(200).json({'payload':student}))
 	})
 
 	app.post("/api/student/register",async (req,res) => {
+
+
+
 		let email = req.body.email
 		let firstName = req.body.firstName
 		let lastName = req.body.lastName
@@ -50,29 +54,33 @@ module.exports = function(app){
 		// below query easier. But if need access to the original password
 		// then use passwordConfirm
 		req.body.password = hashPassword
-		// How to easily create an insert :) 
+		// How to easily create an insert :)
 		Student.create(req.body)
 		.then(student => {
 
-			res.status(200).json({"payload":student})
+			let token = jwt.sign({
+			  data: student.email
+			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
+			// console.log(token)
+			res.status(200).json({"payload":token})
 
 		}).catch(err => {
 
 			res.status(400).json({"message":err})
 
 		})
-		
+
 		// Shouldn't reach here but giving a return anyways
 		// res.status(400).json({"message":"Unknown error"})
-		
-		
+
+
 	})
 
 	app.post("/api/student/login", async (req, res) => {
 
 
 		let email = req.body.email
-		let password = req.body.password 
+		let password = req.body.password
 
 		// let hashPassword = await bcrypt.hash(password, saltRounds).then()
 		// console.log(hashPassword);
@@ -91,21 +99,22 @@ module.exports = function(app){
 				// To make sure we don't call the functions below
 				return
 			}
-			let result = await bcrypt.compare(password, student[0].password) 
+			let result = await bcrypt.compare(password, student[0].password)
 			// console.log(result);
 
 
 			if(result){
-				res.status(200).json({"message":"Autheticated"})
+				let token = jwt.sign({
+				  data: student[0].email
+				}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
+				res.status(200).json({"payload":token})
+
 			}
 			else{
 				res.status(400).json({"message":"Wrong email/password"})
 			}
-			
+
 		})
 
-
-
-		// res.status(200).json({"message":"login"})
 	})
 }

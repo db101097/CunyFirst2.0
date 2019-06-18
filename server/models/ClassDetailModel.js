@@ -45,7 +45,8 @@ module.exports = function(sequelize) {
             validate:{
                 allowNull: false,
                 notEmpty: true
-            }  	
+            }
+        	
         },
         description:{
         	type:Sequelize.STRING,

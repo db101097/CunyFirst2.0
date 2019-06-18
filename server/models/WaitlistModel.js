@@ -14,7 +14,10 @@ module.exports = function(sequelize) {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,
-            autoIncrement:true
+            autoIncrement:true,
+            validate:{
+                isInt: true
+            }
         }
     },{
         sequelize,

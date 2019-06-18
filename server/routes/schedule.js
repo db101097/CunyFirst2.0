@@ -1,4 +1,6 @@
-
+/*
+    DRY: to return status and description
+*/
 function createResponse(code,body){
     let response={
         status:code,
@@ -7,7 +9,9 @@ function createResponse(code,body){
     console.log(response)
     return response
 }
-
+/*
+    function to find if class exist by checking if classId exist 
+*/
 async function findClass (Class,meetInfo,classId){
     try{
         let result=await Class.findOne({
@@ -26,7 +30,9 @@ async function findClass (Class,meetInfo,classId){
         return ("error")
     }
 }
-
+/*
+    function to find if student exists by checking if studentId exist
+*/
 async function findStudent(Student,sid){
     try{
         let result=await Student.findOne({
@@ -46,26 +52,64 @@ async function findStudent(Student,sid){
     }
 }
 
+/*
+    raw query within sequelize to check if conflict exist, if result is empty or result not empty and the length of result 
+    is zero, then no conflict exists but otherwise conflict exist so we return true
+
+*/
+
+async function findConflict(schedule,Class,meetInfo,cid,sid){
+ // select distinct schedule.subject,schedule."courseNumber" from  (select * from classes inner join "meetInfos"
+ // on classes.id="meetInfos"."classId" where classes.id=cid) as search inner join  (select * from 
+//schedules inner join classes on classes.id=schedules."classId" inner join "meetInfos" on classes.id="meetInfos"."classId"
+//where schedules."studentId"=sid) as schedule on CAST(search."startTime" as TIME) < CAST(schedule."endTime" as TIME) and
+// CAST(search."endTime" as TIME) > CAST(schedule."startTime" as TIME);
+try{
+    let result= await schedule.sequelize.query('select distinct schedule.subject,schedule."courseNumber" from (select * from classes inner join "meetInfos" on classes.id="meetInfos"."classId" where classes.id=(:cid)) as search inner join  (select * from schedules inner join classes on classes.id=schedules."classId" inner join "meetInfos" on classes.id="meetInfos"."classId" where schedules."studentId"=(:sid)) as schedule on CAST(search."startTime" as TIME) < CAST(schedule."endTime" as TIME) and CAST(search."endTime" as TIME) > CAST(schedule."startTime" as TIME)', {
+        replacements: {cid:cid,sid:sid},
+        type:schedule.sequelize.QueryTypes.SELECT
+      });
+      if(result===null || (result!=null && result.length===0)){
+        return false
+      }else{
+        return true
+     }
+     console.log("conflict: ",result)
+   }catch(error){
+        return false
+    }
+}
+
+/*
+    insertClass function first check if class or student exist and conflict does not exist before creating or adding
+    class
+*/
+
 async function insertClass(schedule,Student,meetInfo,Class,sid,cid){
     try{
         let classExist=await findClass(Class,meetInfo,cid);
         let studentExist= await findStudent(Student,sid)
-        console.log('classExist: ',classExist)
-        console.log('studentExist',studentExist)
+        let conflictExist=await findConflict(schedule,Class,meetInfo,cid,sid)
         if(classExist==='empty'|| classExist==='error' ||studentExist==='empty'||studentExist==='error'){
             return createResponse(400,'class or student does not exist')
+        }else if(conflictExist===true ){
+            return createResponse(400,"class conflicts or already exist")
         }else{
-        let result=await schedule.create({
+            let result=await schedule.create({
                 classId:cid,
                 studentId:sid
             })
             return createResponse(200,'successfully added class')
-        }
-    }catch(error){
+            }
+      }catch(error){
         return createResponse(400,'class could not be added')
     }
 }
 
+/*
+    deleteClass function first check if schedule exist and if it is undefined and null, we return to user saying class or
+    student does not exist. If exist we delete the class
+*/
 async function deleteClass(Student,schedule,Class,cid,sid){
     try{
         let scheduleExist=await schedule.findOne({
@@ -88,11 +132,10 @@ async function deleteClass(Student,schedule,Class,cid,sid){
     }
 }
 
-
 module.exports=function(app,Class,meetInfo,schedule,Student){
-    //get all class schedule
-    //class schedule include attributes from classes and meetingInfo
-    app.get('/getSchedule/:studentId',async(req,res,next)=>{
+    
+    // getSchedul route to get all class schedule that matches the studentId
+    app.get('/getSchedule/:studentId',async(req,res)=>{
         try{
             let sid=req.params.studentId
             let classes=await schedule.findAll({
@@ -113,7 +156,8 @@ module.exports=function(app,Class,meetInfo,schedule,Student){
         }
     })
     //route to add classes to schedule
-    //when adding should nt conflict with other classes time
+    //when adding should nt conflict with other classes time, this is helped with helper function insertClass that will
+    //check if conflict exist and add class if no conflict
     app.post('/addClass/:classId',async(req,res)=>{
         const sid=req.body.studentId;
         const cid=req.params.classId;
@@ -151,8 +195,6 @@ module.exports=function(app,Class,meetInfo,schedule,Student){
                 }
             
             }
-            //add class will handle if class exist        
-            //res.redirect('/addClass/:classId')
         }catch(error){
             res.send('error')
         }

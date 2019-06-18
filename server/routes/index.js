@@ -1,10 +1,10 @@
 const router=require("express").Router();
 
-//subroutes 
-const scheduleRouter=require("./schedule");
+// //subroutes 
+// const scheduleRouter=require("./schedule");
 
-//mount subroutes to assemble apirouter
-router.use('/schedule',scheduleRouter);
+// //mount subroutes to assemble apirouter
+// router.use('/schedule',scheduleRouter);
 
 //error handling middleware;
 router.use((req,res,next)=>{
