@@ -11,6 +11,13 @@ module.exports =function(sequelize){
                 notEmpty:true
             }
         },
+        title:{
+            type:Sequelize.STRING,
+            allowNull:false, 
+            validate:{
+                notEmpty:true
+            }
+        },
         courseNumber:{
             type:Sequelize.STRING,
             allowNull:false,

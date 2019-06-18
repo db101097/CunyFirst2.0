@@ -2,6 +2,7 @@ const search=require('../models/migrations/20190618162334-create-classes')
 
 module.exports=function(app,Class,meetInfo,schedule,Student){
 
+    //query the model
     app.get('/:term',async function(req,res){
         try{
             let createSearch= await search.up(Class)

@@ -127,18 +127,25 @@ module.exports=function(waitList,classAvailability,Class,student,app){
          })
 
         app.post('/addClass',async function(req,res){
-                console.log('here')
+                console.log(req.body)
                 let sbj=req.body.subject;
-                let cn=req.body.cn;
-                let sec=req.body.sec;
+                let cn=req.body.courseNumber;
+                let sec=req.body.section;
                 let name=req.body.name;
+                let title=req.body.title
                 Class.create({
                     subject:sbj,
                     courseNumber:cn,
                     section:sec,
-                    name:name
-                });
-                res.status(200).send('class added')
+                    name:name,
+                    title:title
+                }).then((result)=>{
+                    res.status(200).send('class added')
+                }).catch((error)=>{
+                    console.log(error)
+                    res.status(400).send(error)
+                })
+                
         })
 
 

@@ -1,10 +1,23 @@
 'use strict';
 
+/*
+  sequelize-cli to manage migrations: 
+  full text search funtionality with sequelize
+  add TS vector as a column, add text search index using the vector
+  update the vector when model changes
+  add search logic to app
+
+*/
+
 const vectorName = '_search';
 
 const searchObjects = {
-  classes: ['name', 'subject'],
+  classes: ['name', 'subject','title'],
 };
+
+// "up" adds column call _search to key, updates _search to TSVector
+// creates index on _search and when record updates or inserts adds a trigggger
+// to table to update _search
 
 module.exports = {
   up: (queryInterface) => (
