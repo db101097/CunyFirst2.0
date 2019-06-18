@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const validate = require("validate.js");
 const jwt = require('jsonwebtoken')
+const auth = require("../utils/authentication")
 const saltRounds = 10;
 const constraints = {
   from: {
@@ -15,7 +16,6 @@ module.exports = function(app, Student){
 
 	app.post("/api/student/register",async (req,res) => {
 
-		
 
 		let email = req.body.email
 		let firstName = req.body.firstName
@@ -58,7 +58,12 @@ module.exports = function(app, Student){
 		.then(student => {
 
 			let token = jwt.sign({
-			  data: student.email
+			  data: {
+			  	studentId: student.id,
+			  	email: student.email,
+			  	firstName: student.firstName,
+			  	lastName: student.lastName
+			  }
 			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
 			// console.log(token)
 			res.status(200).json({"payload":token})
@@ -104,7 +109,13 @@ module.exports = function(app, Student){
 
 			if(result){
 				let token = jwt.sign({
-				  data: student[0].email
+
+					data: {
+						studentId: student[0].id,
+						email: student[0].email,
+						firstName: student[0].firstName,
+						lastName: student[0].lastName
+					}
 				}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
 				res.status(200).json({"payload":token})
 
@@ -115,5 +126,20 @@ module.exports = function(app, Student){
 			
 		})
 
+	})
+
+	app.post("/api/student/logout", (req, res) => {
+		let token = req.body.token
+
+		auth.revokeToken(token, res)
+
+	});
+
+	app.post("/api/student/checkToken", (req, res) => {
+		let token = req.body.token
+		console.log(req.body)
+		let decoded = auth.decodedToken(token, res)
+
+		res.status(200).json({"payload": decoded})
 	})
 }
