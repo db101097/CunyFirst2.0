@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { registerThunk } from '../thunks';
 import { connect } from 'react-redux';
-import decode from 'jwt-decode'
 import logo from '../images/cunylogo.png';
 import '../styles/register.css';
 
@@ -73,8 +72,6 @@ class Register extends Component {
   }
 
   render(){
-    let decoded = decode(localStorage.token);
-    console.log(decoded);
     return(
       <div className="App">
         <div className="App-header">
