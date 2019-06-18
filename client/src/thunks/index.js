@@ -15,8 +15,8 @@ export const registerThunk = info => dispatch => {
     // for returning logged in user, user is then set as currentUser in the store
     localStorage.setItem('token', res.data.payload);
     let decoded = decode(localStorage.token);
-    dispatch(loginUser(decoded));
-    console.log(res);
+    localStorage.setItem('exp', decoded.exp);
+    dispatch(loginUser(decoded.data));
   }).catch(err => {
     console.log(err);
   })
@@ -31,9 +31,17 @@ export const loginThunk = info => dispatch => {
     // for returning logged in user, user is then set as currentUser in the store
     localStorage.setItem('token', res.data.payload);
     let decoded = decode(localStorage.token);
-    dispatch(loginUser(decoded));
-    console.log(res);
+    localStorage.setItem('exp', decoded.exp);
+    dispatch(loginUser(decoded.data));
   }).catch(err => {
     console.log(err);
   })
+}
+
+export const revisitThunk = () => dispatch => {
+  const token = localStorage.token;
+  if(token){
+    let decoded = decode(token);
+    dispatch(loginUser(decoded.data));
+  }
 }

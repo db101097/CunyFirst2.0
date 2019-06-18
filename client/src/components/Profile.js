@@ -8,12 +8,21 @@ class Profile extends Component {
       userInfo: {}
     }
 
+    this.onLogout = this.onLogout.bind(this);
+  }
 
+  onLogout = (event) => {
+    localStorage.clear();
+    window.location.replace('/');
   }
 
   render(){
     return(
-      <h1>Proile Will Be Here Soon</h1>
+      <div>
+        <h1>Profile Will Be Here Soon</h1>
+        <button className="ui button" onClick={this.onLogout}>log out</button>
+        <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
+      </div>
     );
   }
 }
