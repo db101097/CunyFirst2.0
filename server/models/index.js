@@ -33,7 +33,8 @@ let models = {
 	meetInfo:MeetInfo,
 	schedule:Schedule,
 	student:Student,
-	waitList:Waitlist 
+	waitList:Waitlist,
+	Blacklist:Blacklist
 }
 
 module.exports = models;

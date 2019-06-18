@@ -141,4 +141,18 @@ module.exports = function(app, Student){
 		let decoded = auth.decodedToken(token, res)
 		res.status(200).json({"payload": decoded})
 	})
+
+	app.post("/api/student/validToken", (req, res) => {
+		let token = req.body.token
+		let result = auth.check(token)
+
+		if(result === true){
+			res.status(200).json({"message":"valid"})
+		}
+
+		else{	
+			res.status(200).json({"message":"invalid"})
+		}
+		
+	})
 }
