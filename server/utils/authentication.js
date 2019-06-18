@@ -38,7 +38,7 @@ let decodedToken = (token, res) => {
 	catch(err){
 		return err.message
 	}
-	
+
 }
 
 let revokeToken = (token, res) => {
@@ -52,9 +52,9 @@ let revokeToken = (token, res) => {
 		exp
 	})
 	.then(blacklist => { res.status(200).json({"message":"Token has been revoked"}) })
-	.catch(err => { 
+	.catch(err => {
 		console.log(err);
-		res.status(400).json({"message":"Could not revoke token"}) 
+		res.status(400).json({"message":"Could not revoke token"})
 	})
 }
 // authentication("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoibWF0dEBjdW55LmNvbSIsImlhdCI6MTU2MDc4MjIyNCwiZXhwIjoxNTYwNzg1ODI0fQ.IURIE4ZX-uEL_6AOKNXEIsUll6argCwZcrduK6sogMU")
