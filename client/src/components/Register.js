@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { registerThunk } from '../thunks';
 import { connect } from 'react-redux';
-import decode from 'jwt-decode'
+import { Link } from 'react-router-dom';
 import logo from '../images/cunylogo.png';
 import '../styles/register.css';
 
@@ -56,25 +56,20 @@ class Register extends Component {
   }
 
   handleHomeClick = (event) => {
-    console.log('Go home!');
     window.location.replace('/');
   }
 
   handleKeyPress = (event) => {
     if(event.key === 'Enter'){
-      console.log(this.state);
       this.props.register(this.state);
     }
   }
 
-  handleSignUp = () => {
-    console.log(this.state);
+  handleSignUp = (event) => {
     this.props.register(this.state);
   }
 
   render(){
-    let decoded = decode(localStorage.token);
-    console.log(decoded);
     return(
       <div className="App">
         <div className="App-header">
@@ -155,7 +150,9 @@ class Register extends Component {
                         />
                       </div>
                     </div>
-                    <div className="ui fluid large submit button" onClick={this.handleSignUp}>Register</div>
+                    <Link to='/'>
+                      <button className="ui fluid large submit button" onClick={this.handleSignUp}>Register</button>
+                    </Link>
                   </div>
                 </form>
               </div>
@@ -168,17 +165,10 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    currentUser: state.currentUser
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     register: (info) => dispatch(registerThunk(info))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(null, mapDispatchToProps)(Register);
