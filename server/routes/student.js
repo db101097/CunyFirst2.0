@@ -139,7 +139,6 @@ module.exports = function(app, Student){
 		let token = req.body.token
 		console.log(req.body)
 		let decoded = auth.decodedToken(token, res)
-
 		res.status(200).json({"payload": decoded})
 	})
 }

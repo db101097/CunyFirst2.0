@@ -23,7 +23,7 @@ module.exports = function(sequelize) {
         }
        
     },
-        {sequelize,modelName: 'Blacklist',timestamps: false}
+        {sequelize,modelName: 'blacklist',timestamps: false}
     );
 
     return Blacklist
