@@ -1,36 +1,21 @@
-let elasticsearch = require('elasticsearch');
-let elasticClient = new elasticsearch.Client({
-    host:'https://1d15tz36sd:nxf02sy6p5@cunyfirst2-0-8543628276.us-east-1.bonsaisearch.net:443'
-});
+const search=require('../models/migrations/20190618162334-create-classes')
 
-let indexName = "college";
+module.exports=function(app,Class,meetInfo,schedule,Student){
 
-/**
-* Delete an existing index
-*/
-function deleteIndex() {  
-    return elasticClient.indices.delete({
-        index: indexName
-    });
+    app.get('/:term',async function(req,res){
+        try{
+            let createSearch= await search.up(Class)
+            let result= await Class.sequelize.query('SELECT * FROM classes WHERE _search @@ plainto_tsquery((:l), (:t))',
+            {
+                replacements: {l:'english',t:req.params.term},
+                type:Class.sequelize.QueryTypes.SELECT
+            })
+            console.log(result)
+            res.status(200).send(result)
+            let deleteSearch = await search.down(Class)
+        }catch(error){
+            console.log(error)
+            res.status(400).send(error)
+        }      
+    })
 }
-exports.deleteIndex = deleteIndex;
-
-/**
-* create the index
-*/
-function initIndex() {  
-    return elasticClient.indices.create({
-        index: indexName
-    });
-}
-exports.initIndex = initIndex;
-
-/**
-* check if the index exists
-*/
-function indexExists() {  
-    return elasticClient.indices.exists({
-        index: indexName
-    });
-}
-exports.indexExists = indexExists; 
