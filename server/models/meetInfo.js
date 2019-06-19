@@ -7,7 +7,7 @@ module.exports = function(sequelize) {
     meetingInfo.init({
 
         days:{
-            type: Sequelize.STRING,
+            type: Sequelize.ARRAY(Sequelize.STRING),
             allowNull: false,
             validate:{
                 notNull: true,           

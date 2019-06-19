@@ -13,6 +13,7 @@ const MeetInfo = require('./meetInfo')(sequelize)
 const Schedule = require('./ScheduleModel')(sequelize)
 const Student = require('./student')(sequelize)
 const Waitlist = require('./WaitlistModel')(sequelize)
+const Blacklist = require('./BlacklistModel')(sequelize)
 
 Class.hasOne(ClassDetail)
 ClassDetail.belongsTo(Class)
@@ -53,8 +54,8 @@ let models = {
 	meetInfo:MeetInfo,
 	schedule:Schedule,
 	student:Student,
-	waitList:Waitlist 
+	waitList:Waitlist,
+	Blacklist:Blacklist
 }
 
-module.exports = [sequelize, Student]
 module.exports = models;

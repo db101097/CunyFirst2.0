@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { loginThunk } from '../thunks';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import logo from '../images/solocunylogo.png';
 import '../styles/register.css';
 
@@ -30,13 +30,11 @@ class Login extends Component {
   }
 
   handleLogin = (event) => {
-    console.log(this.state);
     this.props.login(this.state);
   }
 
   handleKeyPress = (event) => {
     if(event.key === 'Enter'){
-      console.log(this.state);
       this.props.login(this.state);
     }
   }
@@ -46,7 +44,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <div className="App-header">
@@ -83,7 +80,9 @@ class Login extends Component {
                         />
                       </div>
                     </div>
-                    <div className="ui fluid large submit button" onClick={this.handleLogin}>Login</div>
+                    <Link to='/'>
+                      <button className="ui fluid large submit button" onClick={this.handleLogin}>Login</button>
+                    </Link>
                   </div>
                 </form>
               </div>
