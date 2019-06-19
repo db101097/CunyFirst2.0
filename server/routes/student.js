@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const validate = require("validate.js");
+const Sequelize = require('../sequelize')
+const Student = Sequelize.import("../models/student")
 const jwt = require('jsonwebtoken')
 const auth = require("../utils/authentication")
 const saltRounds = 10;
@@ -16,6 +18,8 @@ module.exports = function(app, Student){
 
 	app.post("/api/student/register",async (req,res) => {
 
+
+
 		let email = req.body.email
 		let firstName = req.body.firstName
 		let lastName = req.body.lastName
@@ -26,7 +30,6 @@ module.exports = function(app, Student){
 		if(password != passwordConfirm){
 			res.status(400).json({"message":"Passwords do not match"})
 		}
-
 
 		// Interestingly, valid emails get returned as undefined
 		if(validate({from:email},constraints) != undefined){
@@ -53,7 +56,6 @@ module.exports = function(app, Student){
 		// then use passwordConfirm
 		req.body.password = hashPassword
 		// How to easily create an insert :)
-
 		Student.create(req.body)
 		.then(student => {
 
@@ -76,6 +78,7 @@ module.exports = function(app, Student){
 
 		// Shouldn't reach here but giving a return anyways
 		// res.status(400).json({"message":"Unknown error"})
+
 
 	})
 
@@ -102,7 +105,6 @@ module.exports = function(app, Student){
 				// To make sure we don't call the functions below
 				return
 			}
-
 			let result = await bcrypt.compare(password, student[0].password)
 			// console.log(result);
 

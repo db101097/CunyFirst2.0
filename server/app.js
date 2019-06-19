@@ -1,13 +1,10 @@
 'use strict';
 
-//
-// app.js
-//
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 // const routes = require('./routes');
+//require('./routes/schedule')(app)
 
 const Sequelize = require('./sequelize')
 const models = require("./models/index")
@@ -31,7 +28,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-// app.use('/api/student',student)
+const scheduleRoutes = require('./routes/schedule')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'])
+const waitListRoutes = require('./routes/waitList')(models['waitList'],models['classAvailability'],models['Class'],models['student'],app)
+const searchRoutes = require('./routes/search')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'])
+
 require('./routes/student')(app, models['student'])
 
 module.exports = app;
