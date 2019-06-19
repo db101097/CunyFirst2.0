@@ -15,10 +15,16 @@ class Enroll extends Component {
     this.onKeyPress = this.onKeyPress.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubjectClick = this.onSubjectClick.bind(this);
+    this.handleSubjectClick = this.handleSubjectClick.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
 
   handleSearchInput = (e) => {
     this.setState({searchedValue: e.target.value});
+  }
+
+  handleSubjectClick = (e) => {
+    this.setState({subjectSearchValue: e.target.value});
   }
 
   onKeyPress = (event) => {
@@ -31,18 +37,23 @@ class Enroll extends Component {
   }
 
   onSubjectClick = (event) => {
-    this.setState({subjectSearchValue: event.target.value});
+    console.log(this.state.subjectSearchValue);
+  }
+
+  onLogout = (event) => {
+    localStorage.clear();
+    window.location.replace('/');
   }
 
   render(){
     return (
       <div className="top-border">
-        <div class="ui secondary  menu">
+        <div className="ui secondary  menu">
           <div className="cunyimage" >
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
-          <div class="right menu">
-            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout}>
+          <div className="right menu">
+            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/' >
               Logout
             </a>
           </div>
@@ -58,17 +69,19 @@ class Enroll extends Component {
           <i className="inverted circular search link icon" onClick={this.onSubmit} />
         </div>
         <h1 style={{color: 'black'}}> Search for a class by subject </h1>
-        <div className="ui grid container" style={{marginTop: '1%'}}>
-          <div className="four wide column">
-            <button style={{width: '200px'}} className="ui button" value="Computer Science" onClick={this.onSubjectClick}>Computer Science</button>
-          </div>
-          <div className="four wide column">
-            <button style={{width: '200px'}} className="ui button" value="English" onClick={this.onSubjectClick}>English</button>
-          </div>
-          <div className="four wide column">
-            <button style={{width: '200px'}} className="ui button" value="Bio" onClick={this.onSubjectClick}>Bio</button>
-          </div>
-        </div>
+        <select className="ui dropdown"
+                value={this.state.subjectSearchValue}
+                onChange={this.handleSubjectClick}
+                style={{ borderRadius: '5px'}}>
+          <option value="" style= {{color: 'grey'}}>Select Subject</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="English">English</option>
+          <option value="Biology">Biology</option>
+        </select>
+        <button className="ui button" onClick={this.onSubjectClick} style={{marginLeft: '2.5%'}}>
+          <i className="search icon" />
+          Search
+        </button>
       </div>
     );
   }

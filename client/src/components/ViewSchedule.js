@@ -11,12 +11,12 @@ class ViewSchedule extends Component {
   render(){
     return(
       <div className="top-border">
-        <div class="ui secondary  menu">
+        <div className="ui secondary  menu">
           <div className="cunyimage" >
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
-          <div class="right menu">
-            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout}>
+          <div className="right menu">
+            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>

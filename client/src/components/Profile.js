@@ -28,7 +28,7 @@ class Profile extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div class="right menu">
-            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout}>
+            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>
