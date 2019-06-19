@@ -80,7 +80,7 @@ class Login extends Component {
                         />
                       </div>
                     </div>
-                    <Link to='/'>
+                    <Link to='/login'>
                       <button className="ui fluid large submit button" onClick={this.handleLogin}>Login</button>
                     </Link>
                   </div>
