@@ -150,7 +150,7 @@ class Register extends Component {
                         />
                       </div>
                     </div>
-                    <Link to='/'>
+                    <Link to='/register'>
                       <button className="ui fluid large submit button" onClick={this.handleSignUp}>Register</button>
                     </Link>
                   </div>

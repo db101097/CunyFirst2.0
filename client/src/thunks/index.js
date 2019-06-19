@@ -17,8 +17,10 @@ export const registerThunk = info => dispatch => {
     let decoded = decode(localStorage.token);
     localStorage.setItem('exp', decoded.exp);
     dispatch(loginUser(decoded.data));
+    window.location.replace('/');
   }).catch(err => {
-    console.log(err);
+    window.alert('Invalid Information!\nTry Again: Make sure your email is valid!');
+    window.location.replace('/register');
   })
 }
 
@@ -33,8 +35,10 @@ export const loginThunk = info => dispatch => {
     let decoded = decode(localStorage.token);
     localStorage.setItem('exp', decoded.exp);
     dispatch(loginUser(decoded.data));
+    window.location.replace('/');
   }).catch(err => {
-    console.log(err);
+    window.alert('Wrong Credentials!\nTry Again or Register an Account');
+    window.location.replace('/login');
   })
 }
 
