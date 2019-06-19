@@ -18,8 +18,6 @@ module.exports = function(app, Student){
 
 	app.post("/api/student/register",async (req,res) => {
 
-
-
 		let email = req.body.email
 		let firstName = req.body.firstName
 		let lastName = req.body.lastName
@@ -78,7 +76,6 @@ module.exports = function(app, Student){
 
 		// Shouldn't reach here but giving a return anyways
 		// res.status(400).json({"message":"Unknown error"})
-
 
 	})
 

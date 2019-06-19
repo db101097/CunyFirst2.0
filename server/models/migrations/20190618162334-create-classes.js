@@ -12,7 +12,7 @@
 const vectorName = '_search';
 
 const searchObjects = {
-  classes: ['name', 'subject','title'],
+  classes: ['name', 'subject','title'],  
 };
 
 // "up" adds column call _search to key, updates _search to TSVector
