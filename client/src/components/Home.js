@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../images/cfirst.gif';
+import { Link } from 'react-router-dom';
 import '../styles/App.css';
 
 const Home = () => {

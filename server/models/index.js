@@ -1,4 +1,10 @@
-const sequelize = require("../sequelize")
+const Sequelize = require ('sequelize')
+
+const sequelize = new Sequelize("postgres://lulylais:0pMYbvDCzD64DklyVmSZqql9n7HRqzTt@raja.db.elephantsql.com:5432/lulylais",
+{
+	define: { timestamps: false }
+}
+);
 
 const ClassAvailability = require('./classAvailability')(sequelize)
 const ClassDetail = require('./ClassDetailModel')(sequelize)
@@ -24,6 +30,21 @@ Schedule.belongsTo(Student)
 Waitlist.belongsTo(Class)
 Waitlist.belongsTo(Student)
 
+// Waitlist.findAll({})
+// .then((results)=>{
+// 	//console.log('result',results)
+// })
+
+sequelize.sync();
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  })
 sequelize.sync()
 
 let models = {

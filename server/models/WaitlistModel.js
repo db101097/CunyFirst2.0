@@ -4,6 +4,17 @@ module.exports = function(sequelize) {
     Waitlist.init({
         position:{
             type:Sequelize.INTEGER,
+            allowNull:false,
+        	validate: { 
+                min: 1,
+                notEmpty: true,
+                isInt: true
+            }
+        },
+        id:{
+            type:Sequelize.INTEGER,
+            primaryKey:true,
+            autoIncrement:true,
             validate:{
                 isInt: true
             }
