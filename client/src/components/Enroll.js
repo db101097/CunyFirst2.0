@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from '../images/cfirst.gif';
 import '../styles/enroll.css'
 
 class Enroll extends Component {
@@ -36,7 +37,17 @@ class Enroll extends Component {
   render(){
     return (
       <div className="top-border">
-        <h1 style={{color: 'black', marginTop: '5%'}}> Search for a class </h1>
+        <div class="ui secondary  menu">
+          <div className="cunyimage" >
+            <img className="ui small image" src={logo} alt="CUNYFirst" />
+          </div>
+          <div class="right menu">
+            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout}>
+              Logout
+            </a>
+          </div>
+        </div>
+        <h1 style={{color: 'black'}}> Search for a class </h1>
         <div className="ui icon input">
           <input
             type="text"
