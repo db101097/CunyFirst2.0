@@ -25,7 +25,7 @@ async function updateStatus(classDetail,classId) {
     }
 }
 /*
-    function to find if class exist by checking if classId exist 
+    function to find if class exist by checking if classId exist
 */
 async function findClass (Class,classAvailability,classDetail,classId){
     try{
@@ -79,14 +79,14 @@ async function findStudent(Student,sid){
 }
 
 /*
-    raw query within sequelize to check if conflict exist, if result is empty or result not empty and the length of result 
+    raw query within sequelize to check if conflict exist, if result is empty or result not empty and the length of result
     is zero, then no conflict exists but otherwise conflict exist so we return true
 
 */
 
 async function findConflict(schedule,Class,meetInfo,cid,sid){
  // select distinct schedule.subject,schedule."courseNumber" from  (select * from classes inner join "meetInfos"
- // on classes.id="meetInfos"."classId" where classes.id=cid) as search inner join  (select * from 
+ // on classes.id="meetInfos"."classId" where classes.id=cid) as search inner join  (select * from
 //schedules inner join classes on classes.id=schedules."classId" inner join "meetInfos" on classes.id="meetInfos"."classId"
 //where schedules."studentId"=sid) as schedule on CAST(search."startTime" as TIME) < CAST(schedule."endTime" as TIME) and
 // CAST(search."endTime" as TIME) > CAST(schedule."startTime" as TIME);
@@ -117,6 +117,8 @@ async function insertClass(schedule,Student,classAvailability,meetInfo,classDeta
         console.log("classExist: ", classExist)
         let studentExist= await findStudent(Student,sid)
         let conflictExist=await findConflict(schedule,Class,meetInfo,cid,sid)
+        console.log("classExist",classExist)
+        console.log("student: ",studentExist)
         if(classExist==='empty'|| classExist==='error' ||studentExist==='empty'||studentExist==='error'){
             return createResponse(400,'class or student does not exist')
         }else if (classExist===false){
@@ -197,11 +199,11 @@ module.exports=function(app,Class,meetInfo,schedule,Student,classAvailability,cl
 
     });
     //remove class from schedules
-    app.delete('/deleteClass/:classId',async(req,res)=>{
-        const sid=req.body.studentId;
+    app.delete('/deleteClass/:classId/:studentId',async(req,res)=>{
+        const sid=req.params.studentId;
         const cid=req.params.classId;
         let result=await deleteClass(Student,schedule,Class,cid,sid);
-        res.status(result.status).send(result.data)    
+        res.status(result.status).send(result.data)
     });
 
     //swap class
@@ -223,12 +225,10 @@ module.exports=function(app,Class,meetInfo,schedule,Student,classAvailability,cl
                 }else{
                     res.status(400).send(deleteResult.data)
                 }
-            
+
             }
         }catch(error){
             res.send('error')
         }
     })
 }
-
-

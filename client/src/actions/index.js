@@ -5,9 +5,16 @@ export const loginUser = (user) => {
   }
 }
 
-export const returnClass = (course) => {
+export const getClasses = (classes) => {
   return {
-    type: 'GET_CLASS',
-    payload: course
+    type: 'GET_CLASSES',
+    payload: classes
+  }
+}
+
+export const getSchedule = (schedule) => {
+  return {
+    type: 'GET_SCHEDULE',
+    payload: schedule
   }
 }
