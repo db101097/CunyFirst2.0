@@ -1,6 +1,6 @@
 import axios from 'axios';
 import decode from 'jwt-decode'
-import { loginUser } from '../actions';
+import { loginUser, getClasses } from '../actions';
 
 export const registerThunk = info => dispatch => {
   return axios.post('http://' + window.location.hostname  + ':8080/api/student/register',{
@@ -48,4 +48,14 @@ export const revisitThunk = () => dispatch => {
     let decoded = decode(token);
     dispatch(loginUser(decoded.data));
   }
+}
+
+export const searchThunk = term => dispatch => {
+  return axios.get('http://localhost:8080/getClasses/'+term+'/0')
+    .then(res => {
+      dispatch(getClasses(res.data));
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }

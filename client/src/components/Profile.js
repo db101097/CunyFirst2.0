@@ -23,12 +23,12 @@ class Profile extends Component {
   render(){
     return(
       <div className="top-border">
-        <div class="ui secondary  menu">
+        <div className="ui secondary  menu">
           <div className="cunyimage" >
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
-          <div class="right menu">
-            <a class="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+          <div className="right menu">
+            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>
@@ -36,7 +36,7 @@ class Profile extends Component {
         <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
         <h1> Your Classes </h1>
         <div className="ui grid container">
-          <Class />
+          <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
           <button className="ui button" style={{marginTop: '2%'}}> View Full Schedule </button>
