@@ -3,7 +3,7 @@ import decode from 'jwt-decode'
 import { loginUser, getClasses, getSchedule } from '../actions';
 
 export const registerThunk = info => dispatch => {
-  return axios.post('http://' + window.location.hostname  + ':8080/api/student/register',{
+  return axios.post('https://api.mwong.io/api/student/register',{
     "email": info.email,
     "firstName": info.firstName,
     "lastName": info.lastName,
@@ -25,7 +25,7 @@ export const registerThunk = info => dispatch => {
 }
 
 export const loginThunk = info => dispatch => {
-  return axios.post('http://' + window.location.hostname  + ':8080/api/student/login', {
+  return axios.post('https://api.mwong.io/api/student/login', {
     "email": info.email,
     "password": info.password
   }).then(res => {
@@ -51,7 +51,7 @@ export const revisitThunk = () => dispatch => {
 }
 
 export const searchThunk = term => dispatch => {
-  return axios.get('http://localhost:8080/getClasses/'+term+'/0')
+  return axios.get('https://api.mwong.io/getClasses/'+term+'/0')
     .then(res => {
       dispatch(getClasses(res.data));
     })
@@ -61,7 +61,7 @@ export const searchThunk = term => dispatch => {
 }
 
 export const addThunk = (classID, studentID) => dispatch => {
-  return axios.post('http://' + window.location.hostname + ':8080/addClass/' + classID, {
+  return axios.post('https://api.mwong.io/addClass/' + classID, {
     "studentId": studentID
   }).then(res => {
     console.log(res);
@@ -74,7 +74,7 @@ export const addThunk = (classID, studentID) => dispatch => {
 }
 
 export const deleteThunk = (classID, studentID) => dispatch => {
-  return axios.delete('http://' + window.location.hostname + ':8080/deleteClass/' + classID + '/' + studentID)
+  return axios.delete('https://api.mwong.io/deleteClass/' + classID + '/' + studentID)
     .then(res => {
       console.log(res);
       window.alert('SUCCESS:\nClass Deleted')
@@ -86,7 +86,7 @@ export const deleteThunk = (classID, studentID) => dispatch => {
 }
 
 export const getScheduleThunk = studentID => dispatch => {
-  return axios.get('http://' + window.location.hostname + ':8080/getSchedule/' + studentID)
+  return axios.get('https://api.mwong.io/getSchedule/' + studentID)
     .then(res => {
       console.log(res.data);
       dispatch(getSchedule(res.data));
