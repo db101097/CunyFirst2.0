@@ -26,12 +26,12 @@ module.exports = function(app, Student){
 		let major = req.body.major
 
 		if(password != passwordConfirm){
-			res.status(400).json({"message":"Passwords do not match"})
+			return res.status(400).json({"message":"Passwords do not match"})
 		}
 
 		// Interestingly, valid emails get returned as undefined
 		if(validate({from:email},constraints) != undefined){
-			res.status(400).json({"message":"Not valid email"})
+			return res.status(400).json({"message":"Not valid email"})
 		}
 
 		let checkEmail = await Student.findAll({
@@ -66,7 +66,7 @@ module.exports = function(app, Student){
 			  }
 			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
 			// console.log(token)
-			return res.status(200).json({"payload":token})
+			// return res.status(200).json({"payload":token})
 
 		}).catch(err => {
 
