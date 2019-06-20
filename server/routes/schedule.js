@@ -163,7 +163,7 @@ async function deleteClass(Student,schedule,Class,cid,sid){
 
 module.exports=function(app,Class,meetInfo,schedule,Student,classAvailability,classDetail){
     
-    // getSchedul route to get all class schedule that matches the studentId
+    // getSchedule route to get all class schedule that matches the studentId
     app.get('/getSchedule/:studentId',async(req,res)=>{
         try{
             let sid=req.params.studentId
