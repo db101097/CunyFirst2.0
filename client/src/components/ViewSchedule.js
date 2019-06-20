@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Calendar from './Calendar';
+import { getScheduleThunk } from '../thunks';
+import { connect } from 'react-redux';
+import decode from 'jwt-decode'
 import logo from '../images/cfirst.gif';
 
 class ViewSchedule extends Component {
@@ -8,7 +11,30 @@ class ViewSchedule extends Component {
     window.location.replace('/');
   }
 
+  componentDidMount(){
+    let decoded = decode(localStorage.token);
+    this.props.getSchedule(decoded.data.studentId);
+  }
+
+
+
   render(){
+
+    let table = [];
+    let schedule = this.props.schedule;
+    if(schedule !== undefined){
+      console.log(schedule);
+      for(let i = 0; i < schedule.length; i++){
+        let obj = {
+          title: schedule[i].class.title,
+          start: new Date('2019-06-14T' + schedule[i].class.meetInfo.startTime),
+          end: new Date('2019-06-14T' + schedule[i].class.meetInfo.endTime)
+        }
+        console.log(obj);
+        table.push(obj);
+      }
+    }
+
     return(
       <div className="top-border">
         <div className="ui secondary  menu">
@@ -21,9 +47,10 @@ class ViewSchedule extends Component {
             </a>
           </div>
         </div>
+        <h1 style={{marginBottom: '-5%'}}>Your Calender</h1>
         <div className='App'>
           <div className="App-header">
-            <Calendar />
+            <Calendar events={table}/>
           </div>
         </div>
       </div>
@@ -31,4 +58,17 @@ class ViewSchedule extends Component {
   }
 }
 
-export default ViewSchedule;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    schedule: state.getSchedule
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getSchedule:(id) => dispatch(getScheduleThunk(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewSchedule);

@@ -103,7 +103,7 @@ class Enroll extends Component {
                 style={{ borderRadius: '5px'}}>
           <option value="" style= {{color: 'grey'}}>Select Subject</option>
           <option value="CSCI">Computer Science</option>
-          <option value="English">English</option>
+          <option value="Eng">English</option>
           <option value="Bio">Biology</option>
         </select>
         <button className="ui button" onClick={this.onSubjectClick} style={{marginLeft: '2.5%'}}>

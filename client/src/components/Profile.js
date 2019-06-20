@@ -50,8 +50,6 @@ class Profile extends Component {
                 );
     }
 
-
-
     return(
       <div className="top-border">
         <div className="ui secondary  menu">
