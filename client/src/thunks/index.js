@@ -69,3 +69,13 @@ export const addThunk = (classID, studentID) => dispatch => {
     console.log(err);
   })
 }
+
+export const deleteThunk = (classID, studentID) => dispatch => {
+  return axios.delete('http://' + window.location.hostname + ':8080/deleteClass/' + classID, {
+    "studentId": studentID
+  }).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
+}

@@ -58,11 +58,13 @@ class Enroll extends Component {
 
     for(let i = 0; i < results.length; i++){
       let currClass = results[i];
+      console.log(currClass);
       let time = currClass.startTime + '-' + currClass.endTime;
       let days = currClass.days[0] + ' and ' + currClass.days[1];
       table.push(
                   <Class
                     search={true}
+                    classId={currClass.classId}
                     name={currClass.name}
                     title={currClass.title}
                     time={time}

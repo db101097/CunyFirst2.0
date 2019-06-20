@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addThunk } from '../thunks';
 
 class Class extends Component {
+
+  onSelect = (event) => {
+    this.props.add(this.props.classId, this.props.studentId)
+  }
+
   render(){
     if(this.props.placeholder === true){
       return(
@@ -71,7 +78,7 @@ class Class extends Component {
                   Room: {this.props.room}
                 </div>
               </div>
-              <div className="ui green bottom attached button">
+              <div className="ui green bottom attached button" onClick={this.onSelect}>
                 <i className="plus icon" />Select
               </div>
             </div>
@@ -82,4 +89,16 @@ class Class extends Component {
   }
 }
 
-export default Class;
+const mapStateToProps = state => {
+  return {
+    studentId: state.user.currentUser.studentId
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    add:(classID, studentID) => dispatch(addThunk(classID, studentID))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Class);
