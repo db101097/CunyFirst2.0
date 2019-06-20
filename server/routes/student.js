@@ -65,11 +65,11 @@ module.exports = function(app, Student){
 			  	lastName: student.lastName
 			  }
 			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
-			// console.log(token)
+			console.log("login token",token)
 			// return res.status(200).json({"payload":token})
 
 		}).catch(err => {
-
+			console.log("login error", err);
 			return res.status(400).json({"message":err})
 
 		})
