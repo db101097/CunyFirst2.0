@@ -59,3 +59,13 @@ export const searchThunk = term => dispatch => {
       console.log(err);
     })
 }
+
+export const addThunk = (classID, studentID) => dispatch => {
+  return axios.post('http://' + window.location.hostname + ':8080/addClass/' + classID, {
+    "studentId": studentID
+  }).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
+}
