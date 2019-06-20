@@ -49,3 +49,13 @@ export const revisitThunk = () => dispatch => {
     dispatch(loginUser(decoded.data));
   }
 }
+
+export const searchThunk = term => dispatch => {
+  return axios.get('http://localhost:8080/getClasses/'+term+'/0')
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+}

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { searchThunk } from '../thunks';
+import { connect } from 'react-redux';
 import logo from '../images/cfirst.gif';
 import '../styles/enroll.css'
 
@@ -28,16 +30,20 @@ class Enroll extends Component {
   }
 
   onKeyPress = (event) => {
-    if(event.key === 'Enter')
+    if(event.key === 'Enter'){
       console.log(this.state.searchedValue);
+      this.props.search(this.state.searchedValue);
+    }
   }
 
   onSubmit = (event) => {
     console.log(this.state.searchedValue);
+    this.props.search(this.state.searchedValue);
   }
 
   onSubjectClick = (event) => {
     console.log(this.state.subjectSearchValue);
+    this.props.search(this.state.subjectSearchValue);
   }
 
   onLogout = (event) => {
@@ -74,9 +80,9 @@ class Enroll extends Component {
                 onChange={this.handleSubjectClick}
                 style={{ borderRadius: '5px'}}>
           <option value="" style= {{color: 'grey'}}>Select Subject</option>
-          <option value="Computer Science">Computer Science</option>
+          <option value="CSCI">Computer Science</option>
           <option value="English">English</option>
-          <option value="Biology">Biology</option>
+          <option value="Bio">Biology</option>
         </select>
         <button className="ui button" onClick={this.onSubjectClick} style={{marginLeft: '2.5%'}}>
           <i className="search icon" />
@@ -87,4 +93,10 @@ class Enroll extends Component {
   }
 }
 
-export default Enroll;
+const mapDispatchToProps = dispatch => {
+  return {
+    search:(term) => dispatch(searchThunk(term))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Enroll);
