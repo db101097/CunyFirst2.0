@@ -11,3 +11,10 @@ export const getClasses = (classes) => {
     payload: classes
   }
 }
+
+export const getSchedule = (schedule) => {
+  return {
+    type: 'GET_SCHEDULE',
+    payload: schedule
+  }
+}

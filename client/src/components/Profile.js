@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { getScheduleThunk } from '../thunks';
+import { connect } from 'react-redux';
+import decode from 'jwt-decode'
 import Class from './Class';
 import logo from '../images/cfirst.gif';
 import '../styles/profile.css';
@@ -15,12 +18,36 @@ class Profile extends Component {
     this.onLogout = this.onLogout.bind(this);
   }
 
+  componentDidMount(){
+    let decoded = decode(localStorage.token);
+    this.props.getSchedule(decoded.data.studentId);
+  }
+
   onLogout = (event) => {
     localStorage.clear();
     window.location.replace('/');
   }
 
   render(){
+    let schedule = this.props.schedule;
+    let table = [];
+
+    for(let i = 0; i < schedule.length; i++){
+      let currClass = schedule[i].class;
+      table.push(
+                  <Class
+                    search={false}
+                    classId={currClass.classId}
+                    name={currClass.name}
+                    title={currClass.title}
+                    instructor={currClass.instructor}
+                    room={currClass.room}
+                  />
+                );
+    }
+
+
+
     return(
       <div className="top-border">
         <div className="ui secondary  menu">
@@ -35,7 +62,8 @@ class Profile extends Component {
         </div>
         <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
         <h1> Your Classes </h1>
-        <div className="ui grid container">
+        <div className="ui grid container" style={{marginTop: '1%'}}>
+          {table}
           <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
@@ -46,4 +74,16 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+    schedule: state.getSchedule
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getSchedule:(id) => dispatch(getScheduleThunk(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

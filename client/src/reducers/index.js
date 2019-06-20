@@ -19,3 +19,12 @@ export const getClasses = (classes = [], action) => {
       return classes;
   }
 }
+
+export const getSchedule = (schedule = [], action) => {
+  switch(action.type){
+    case 'GET_SCHEDULE':
+      return action.payload;
+    default:
+      return schedule;
+  }
+}

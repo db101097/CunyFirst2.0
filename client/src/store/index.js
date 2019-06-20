@@ -2,9 +2,9 @@ import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { user, getClasses } from '../reducers';
+import { user, getClasses, getSchedule } from '../reducers';
 
-const rootReducer = combineReducers({ user, getClasses });
+const rootReducer = combineReducers({ user, getClasses, getSchedule });
 
 const logger = createLogger({collapsed: true});
 const middleWare = composeWithDevTools(applyMiddleware(thunkMiddleware, logger));
