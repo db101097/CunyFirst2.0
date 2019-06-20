@@ -6,6 +6,8 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
+import Schedule from './ViewSchedule';
+import Enroll from './Enroll';
 import '../styles/App.css';
 
 class App extends Component {
@@ -21,6 +23,16 @@ class App extends Component {
             <Route path ="/" exact render = {
               () => {
                 return (<Profile user={this.props.currentUser}/>);
+              }
+            }/>
+            <Route path ="/schedule" exact render = {
+              () => {
+                return (<Schedule />);
+              }
+            }/>
+            <Route path ="/enroll" exact render = {
+              () => {
+                return (<Enroll />);
               }
             }/>
           </div>

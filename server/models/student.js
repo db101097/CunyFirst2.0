@@ -1,6 +1,4 @@
 const Sequelize= require('sequelize');
-const Model=Sequelize.Model;
-
 
 module.exports=function(sequelize){
     class Student extends Sequelize.Model{}
