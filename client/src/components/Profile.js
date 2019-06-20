@@ -36,7 +36,7 @@ class Profile extends Component {
         <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
         <h1> Your Classes </h1>
         <div className="ui grid container">
-          <Class />
+          <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
           <button className="ui button" style={{marginTop: '2%'}}> View Full Schedule </button>
