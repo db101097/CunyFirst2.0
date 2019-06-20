@@ -23,15 +23,16 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.json({limit:'100mb'}));       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+  extended: true,
+  limit:'100mb'
 }));
 
 const scheduleRoutes = require('./routes/schedule')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'],models['classAvailability'],models['classDetail'])
 const waitListRoutes = require('./routes/waitList')(models['waitList'],models['classAvailability'],models['Class'],models['student'],app)
 const searchRoutes = require('./routes/search')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'],models['classDetail'],models['classAvailability'])
-
+require('./routes/exportpdf')(app)
 require('./routes/student')(app, models['student'])
 
 module.exports = app;
