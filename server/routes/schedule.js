@@ -171,7 +171,7 @@ module.exports=function(app,Class,meetInfo,schedule,Student,classAvailability,cl
                 where:{
                     studentId:sid
                 },
-                include:[Class]
+                include:[{model:Class,include:[meetInfo]}]
             })
             console.log(classes)
             if(classes===undefined||classes===null){
