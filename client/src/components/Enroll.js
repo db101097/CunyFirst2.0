@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { searchThunk } from '../thunks';
+import { connect } from 'react-redux';
+import Class from './Class';
 import logo from '../images/cfirst.gif';
 import '../styles/enroll.css'
 
@@ -28,16 +31,20 @@ class Enroll extends Component {
   }
 
   onKeyPress = (event) => {
-    if(event.key === 'Enter')
+    if(event.key === 'Enter'){
       console.log(this.state.searchedValue);
+      this.props.search(this.state.searchedValue);
+    }
   }
 
   onSubmit = (event) => {
     console.log(this.state.searchedValue);
+    this.props.search(this.state.searchedValue);
   }
 
   onSubjectClick = (event) => {
     console.log(this.state.subjectSearchValue);
+    this.props.search(this.state.subjectSearchValue);
   }
 
   onLogout = (event) => {
@@ -46,6 +53,26 @@ class Enroll extends Component {
   }
 
   render(){
+    let table = [];
+    let results = this.props.results;
+
+    for(let i = 0; i < results.length; i++){
+      let currClass = results[i];
+      let time = currClass.startTime + '-' + currClass.endTime;
+      let days = currClass.days[0] + ' and ' + currClass.days[1];
+      table.push(
+                  <Class
+                    search={true}
+                    name={currClass.name}
+                    title={currClass.title}
+                    time={time}
+                    days={days}
+                    instructor={currClass.instructor}
+                    room={currClass.room}
+                  />
+                );
+    }
+
     return (
       <div className="top-border">
         <div className="ui secondary  menu">
@@ -74,17 +101,32 @@ class Enroll extends Component {
                 onChange={this.handleSubjectClick}
                 style={{ borderRadius: '5px'}}>
           <option value="" style= {{color: 'grey'}}>Select Subject</option>
-          <option value="Computer Science">Computer Science</option>
+          <option value="CSCI">Computer Science</option>
           <option value="English">English</option>
-          <option value="Biology">Biology</option>
+          <option value="Bio">Biology</option>
         </select>
         <button className="ui button" onClick={this.onSubjectClick} style={{marginLeft: '2.5%'}}>
           <i className="search icon" />
           Search
         </button>
+        <div className="ui grid container" style={{marginTop: '1%'}}>
+          {table}
+        </div>
       </div>
     );
   }
 }
 
-export default Enroll;
+const mapStateToProps = state => {
+  return {
+    results: state.getClasses
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    search:(term) => dispatch(searchThunk(term))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Enroll);

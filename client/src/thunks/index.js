@@ -1,9 +1,9 @@
 import axios from 'axios';
 import decode from 'jwt-decode'
-import { loginUser } from '../actions';
+import { loginUser, getClasses } from '../actions';
 
 export const registerThunk = info => dispatch => {
-  return axios.post('http://localhost:8080/api/student/register',{
+  return axios.post('http://' + window.location.hostname  + ':8080/api/student/register',{
     "email": info.email,
     "firstName": info.firstName,
     "lastName": info.lastName,
@@ -17,13 +17,15 @@ export const registerThunk = info => dispatch => {
     let decoded = decode(localStorage.token);
     localStorage.setItem('exp', decoded.exp);
     dispatch(loginUser(decoded.data));
+    window.location.replace('/');
   }).catch(err => {
-    console.log(err);
+    window.alert('Invalid Information!\nTry Again: Make sure your email is valid!');
+    window.location.replace('/register');
   })
 }
 
 export const loginThunk = info => dispatch => {
-  return axios.post('http://localhost:8080/api/student/login', {
+  return axios.post('http://' + window.location.hostname  + ':8080/api/student/login', {
     "email": info.email,
     "password": info.password
   }).then(res => {
@@ -33,8 +35,10 @@ export const loginThunk = info => dispatch => {
     let decoded = decode(localStorage.token);
     localStorage.setItem('exp', decoded.exp);
     dispatch(loginUser(decoded.data));
+    window.location.replace('/');
   }).catch(err => {
-    console.log(err);
+    window.alert('Wrong Credentials!\nTry Again or Register an Account');
+    window.location.replace('/login');
   })
 }
 
@@ -44,4 +48,14 @@ export const revisitThunk = () => dispatch => {
     let decoded = decode(token);
     dispatch(loginUser(decoded.data));
   }
+}
+
+export const searchThunk = term => dispatch => {
+  return axios.get('http://localhost:8080/getClasses/'+term+'/0')
+    .then(res => {
+      dispatch(getClasses(res.data));
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
