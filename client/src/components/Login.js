@@ -53,7 +53,7 @@ class Login extends Component {
               <div className="column">
                 <h2 className="ui black image header">
                   <div className="content">
-                    Register Your Account
+                    Log in to Your Account
                   </div>
                 </h2>
                 <form className="ui large form" onKeyPress={this.handleKeyPress}>

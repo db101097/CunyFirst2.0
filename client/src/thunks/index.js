@@ -1,6 +1,6 @@
 import axios from 'axios';
 import decode from 'jwt-decode'
-import { loginUser, getClasses } from '../actions';
+import { loginUser, getClasses, getSchedule } from '../actions';
 
 export const registerThunk = info => dispatch => {
   return axios.post('https://api.mwong.io/api/student/register',{
@@ -54,6 +54,42 @@ export const searchThunk = term => dispatch => {
   return axios.get('http://localhost:8080/getClasses/'+term+'/0')
     .then(res => {
       dispatch(getClasses(res.data));
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
+export const addThunk = (classID, studentID) => dispatch => {
+  return axios.post('http://' + window.location.hostname + ':8080/addClass/' + classID, {
+    "studentId": studentID
+  }).then(res => {
+    console.log(res);
+    window.alert('SUCCESS:\nClass Added')
+    window.location.replace('/');
+  }).catch(err => {
+    console.log(err);
+    window.alert('ERROR:\nClass selected conflicts with your schedule!')
+  })
+}
+
+export const deleteThunk = (classID, studentID) => dispatch => {
+  return axios.delete('http://' + window.location.hostname + ':8080/deleteClass/' + classID + '/' + studentID)
+    .then(res => {
+      console.log(res);
+      window.alert('SUCCESS:\nClass Deleted')
+      window.location.replace('/');
+    }).catch(err => {
+      console.log(err.response);
+      window.alert('ERROR:\nUnable to delete class!')
+    })
+}
+
+export const getScheduleThunk = studentID => dispatch => {
+  return axios.get('http://' + window.location.hostname + ':8080/getSchedule/' + studentID)
+    .then(res => {
+      console.log(res.data);
+      dispatch(getSchedule(res.data));
     })
     .catch(err => {
       console.log(err);

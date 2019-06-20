@@ -63,6 +63,7 @@ class Enroll extends Component {
       table.push(
                   <Class
                     search={true}
+                    classId={currClass.classId}
                     name={currClass.name}
                     title={currClass.title}
                     time={time}

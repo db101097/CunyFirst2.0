@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addThunk, deleteThunk } from '../thunks';
 
 class Class extends Component {
+
+  onSelect = (event) => {
+    this.props.add(this.props.classId, this.props.studentId)
+  }
+
+  onDelete = (event) => {
+    let classID = this.props.classId;
+    let studentID = this.props.studentId;
+    this.props.delete(classID, studentID);
+  }
+
   render(){
     if(this.props.placeholder === true){
       return(
@@ -9,11 +22,25 @@ class Class extends Component {
           <div className="ui cards">
             <div className="card">
               <div className="content">
-                <div className="ui placeholder">
-                  <div className="line"></div>
-                  <div className="line"></div>
-                  <div className="line"></div>
-                  <div className="line"></div>
+                <div className="header">
+                  <div className="ui placeholder">
+                    <div className="line"></div>
+                  </div>
+                </div>
+                <div className="meta">
+                  <div className="ui placeholder">
+                    <div className="line"></div>
+                  </div>
+                </div>
+                <div className="description">
+                  <div className="ui placeholder">
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                  </div>
                 </div>
               </div>
               <div className="ui green bottom attached button">
@@ -39,14 +66,14 @@ class Class extends Component {
                   {this.props.title}
                 </div>
                 <div className="description">
-                  Scheduled Time: {this.props.time}
-                  Scheduled Day(s):
-                  Instructor: {this.props.instructor}
+                  Scheduled Time: <br /> {this.props.time} <br />
+                  Scheduled Day(s): <br /> {this.props.days} <br />
+                  Instructor: {this.props.instructor} <br />
                   Room: {this.props.room}
                 </div>
               </div>
-              <div className="ui red bottom attached button">
-                Drop
+              <div className="ui red bottom attached button" onClick={this.onDelete}>
+                <i className="trash icon" /> Drop
               </div>
             </div>
           </div>
@@ -71,7 +98,7 @@ class Class extends Component {
                   Room: {this.props.room}
                 </div>
               </div>
-              <div className="ui green bottom attached button">
+              <div className="ui green bottom attached button" onClick={this.onSelect}>
                 <i className="plus icon" />Select
               </div>
             </div>
@@ -82,4 +109,17 @@ class Class extends Component {
   }
 }
 
-export default Class;
+const mapStateToProps = state => {
+  return {
+    studentId: state.user.currentUser.studentId
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    add:(classID, studentID) => dispatch(addThunk(classID, studentID)),
+    delete:(classID, studentID) => dispatch(deleteThunk(classID, studentID))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Class);
