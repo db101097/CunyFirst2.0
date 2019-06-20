@@ -3,13 +3,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const routes = require('./routes');
-//require('./routes/schedule')(app)
 
 const Sequelize = require('./sequelize')
 const models = require("./models/index")
-
-
 
 app.use(function(req, res, next) {
   const env = process.env.ENV
