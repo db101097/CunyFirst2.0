@@ -65,24 +65,30 @@ export const addThunk = (classID, studentID) => dispatch => {
     "studentId": studentID
   }).then(res => {
     console.log(res);
+    window.alert('SUCCESS:\nClass Added')
+    window.location.replace('/');
   }).catch(err => {
     console.log(err);
+    window.alert('ERROR:\nClass selected conflicts with your schedule!')
   })
 }
 
 export const deleteThunk = (classID, studentID) => dispatch => {
-  return axios.delete('http://' + window.location.hostname + ':8080/deleteClass/' + classID, {
-    "studentId": studentID
-  }).then(res => {
-    console.log(res);
-  }).catch(err => {
-    console.log(err);
-  })
+  return axios.delete('http://' + window.location.hostname + ':8080/deleteClass/' + classID + '/' + studentID)
+    .then(res => {
+      console.log(res);
+      window.alert('SUCCESS:\nClass Deleted')
+      window.location.replace('/');
+    }).catch(err => {
+      console.log(err.response);
+      window.alert('ERROR:\nUnable to delete class!')
+    })
 }
 
 export const getScheduleThunk = studentID => dispatch => {
   return axios.get('http://' + window.location.hostname + ':8080/getSchedule/' + studentID)
     .then(res => {
+      console.log(res.data);
       dispatch(getSchedule(res.data));
     })
     .catch(err => {

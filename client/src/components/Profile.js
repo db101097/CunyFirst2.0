@@ -37,7 +37,7 @@ class Profile extends Component {
       table.push(
                   <Class
                     search={false}
-                    classId={currClass.classId}
+                    classId={currClass.id}
                     name={currClass.name}
                     title={currClass.title}
                     instructor={currClass.instructor}

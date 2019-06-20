@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addThunk } from '../thunks';
+import { addThunk, deleteThunk } from '../thunks';
 
 class Class extends Component {
 
   onSelect = (event) => {
     this.props.add(this.props.classId, this.props.studentId)
+  }
+
+  onDelete = (event) => {
+    let classID = this.props.classId;
+    let studentID = this.props.studentId;
+    this.props.delete(classID, studentID);
   }
 
   render(){
@@ -52,8 +58,8 @@ class Class extends Component {
                   Room: {this.props.room}
                 </div>
               </div>
-              <div className="ui red bottom attached button">
-                Drop
+              <div className="ui red bottom attached button" onClick={this.onDelete}>
+                <i className="trash icon" /> Drop
               </div>
             </div>
           </div>
@@ -97,7 +103,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    add:(classID, studentID) => dispatch(addThunk(classID, studentID))
+    add:(classID, studentID) => dispatch(addThunk(classID, studentID)),
+    delete:(classID, studentID) => dispatch(deleteThunk(classID, studentID))
   }
 }
 

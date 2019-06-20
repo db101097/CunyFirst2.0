@@ -168,8 +168,8 @@ module.exports=function(app,Class,meetInfo,schedule,Student){
 
     });
     //remove class from schedules
-    app.delete('/deleteClass/:classId',async(req,res)=>{
-        const sid=req.body.studentId;
+    app.delete('/deleteClass/:classId/:studentId',async(req,res)=>{
+        const sid=req.params.studentId;
         const cid=req.params.classId;
         let result=await deleteClass(Student,schedule,Class,cid,sid);
         res.status(result.status).send(result.data)
