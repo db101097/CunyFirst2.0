@@ -1,6 +1,26 @@
 const search=require('../models/migrations/20190618162334-create-classes')
 
-module.exports=function(app,Class,meetInfo,schedule,Student){
+module.exports=function(app,Class,meetInfo,schedule,Student,classDetail,classAvailability){
+
+    app.get('/getClassInfo/:classId',async function(req,res){
+        try{
+            let info=await Class.findOne({
+                where:{
+                    id:req.params.classId
+                },
+                include:[classDetail,meetInfo,classAvailability]
+            })
+            console.log("info: ",info)
+            if(info===null || info===undefined || (info!=null && info.length===0)){
+                res.status(400).send("class does not exist")
+            }
+            res.status(200).send(info)
+
+        }catch(error){
+            console.log(error)
+            res.status(400).send("class could not be found")
+        }
+    })
 
     //query the model
     // first params(/:term) to be term searching for (eg:CSCI) AND second params to be student id
