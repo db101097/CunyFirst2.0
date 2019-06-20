@@ -25,13 +25,94 @@ class ViewSchedule extends Component {
     if(schedule !== undefined){
       console.log(schedule);
       for(let i = 0; i < schedule.length; i++){
-        let obj = {
-          title: schedule[i].class.title,
-          start: new Date('2019-06-14T' + schedule[i].class.meetInfo.startTime),
-          end: new Date('2019-06-14T' + schedule[i].class.meetInfo.endTime)
+        let dayOne = {};
+        let dayTwo = {};
+        switch (schedule[i].class.meetInfo.days[0]) {
+          case 'Monday':
+            dayOne = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-17T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-17T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Tuesday':
+            dayOne = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-18T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-18T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Wednesday':
+            dayOne = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-19T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-19T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Thursday':
+            dayOne = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-20T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-20T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Friday':
+            dayOne = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-21T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-21T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          default:
+            break;
         }
-        console.log(obj);
-        table.push(obj);
+
+        switch (schedule[i].class.meetInfo.days[1]) {
+          case 'Monday':
+            dayTwo = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-17T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-17T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Tuesday':
+            dayTwo = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-18T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-18T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Wednesday':
+            dayTwo = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-19T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-19T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Thursday':
+            dayTwo = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-20T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-20T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          case 'Friday':
+            dayTwo = {
+              title: schedule[i].class.title,
+              start: new Date('2019-06-21T' + schedule[i].class.meetInfo.startTime),
+              end: new Date('2019-06-21T' + schedule[i].class.meetInfo.endTime)
+            }
+            break;
+          default:
+            break;
+        }
+        // let dayOne = {
+        //   title: schedule[i].class.title,
+        //   start: new Date('2019-06-14T' + schedule[i].class.meetInfo.startTime),
+        //   end: new Date('2019-06-14T' + schedule[i].class.meetInfo.endTime)
+        // }
+        table.push(dayOne);
+        table.push(dayTwo)
       }
     }
 
