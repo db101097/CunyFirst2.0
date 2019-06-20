@@ -3,18 +3,18 @@ module.exports = function(sequelize) {
     class ClassDetail extends Sequelize.Model {}
     ClassDetail.init({
         status:{
-            type:Sequelize.BOOLEAN,
+            type:Sequelize.STRING,
+            allowNull:false,
             validate:{
-                allowNull: false,
                 notEmpty: true
             },
             
             defaultValue: true
         },
         session:{
-        	type:Sequelize.STRING,
+            type:Sequelize.STRING,
+            allowNull: false,
             validate:{
-                allowNull: false,
                 notEmpty: true,
             },
         	
@@ -22,38 +22,36 @@ module.exports = function(sequelize) {
         },
         credits:{
         	type:Sequelize.INTEGER,
-        	
+            allowNull: false,
         	defaultValue: 0,
         	validate: { 
                 min: 0,
-                allowNull: false,
                 notEmpty: true,
                 max: 5,
                 isInt: true
             }
         },
         dates:{
-        	type:Sequelize.STRING,
-            validate:{
-                allowNull: false,
+            type:Sequelize.STRING,
+            allowNull: false,
+            validate:{ 
                 notEmpty: true
             }
         	
         },
         requirement:{
-        	type:Sequelize.STRING,
+            type:Sequelize.STRING,
+            allowNull: false,
             validate:{
-                allowNull: false,
                 notEmpty: true
             }
         	
         },
         description:{
         	type:Sequelize.STRING,
-        	
+        	allowNull: false,
         	validate: { 
                 len:[0,1000], 
-                allowNull: false,
                 notEmpty: false,
             }
         	

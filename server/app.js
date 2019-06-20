@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-const scheduleRoutes = require('./routes/schedule')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'])
+const scheduleRoutes = require('./routes/schedule')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'],models['classAvailability'],models['classDetail'])
 const waitListRoutes = require('./routes/waitList')(models['waitList'],models['classAvailability'],models['Class'],models['student'],app)
 const searchRoutes = require('./routes/search')(app,models['Class'],models['meetInfo'],models['schedule'],models['student'])
 
