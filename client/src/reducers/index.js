@@ -11,11 +11,11 @@ export const user = (state = initialState, action) => {
   }
 }
 
-export const getClass = (course = null, action) => {
+export const getClasses = (classes = [], action) => {
   switch(action.type) {
-    case 'GET_CLASS':
+    case 'GET_CLASSES':
       return action.payload;
     default:
-      return course;
+      return classes;
   }
 }

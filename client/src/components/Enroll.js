@@ -93,10 +93,16 @@ class Enroll extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    results: state.getClasses
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     search:(term) => dispatch(searchThunk(term))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Enroll);
+export default connect(mapStateToProps, mapDispatchToProps)(Enroll);
