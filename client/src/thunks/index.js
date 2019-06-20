@@ -3,7 +3,7 @@ import decode from 'jwt-decode'
 import { loginUser } from '../actions';
 
 export const registerThunk = info => dispatch => {
-  return axios.post('http://localhost:8080/api/student/register',{
+  return axios.post('http://' + window.location.hostname  + ':8080/api/student/register',{
     "email": info.email,
     "firstName": info.firstName,
     "lastName": info.lastName,
@@ -23,7 +23,7 @@ export const registerThunk = info => dispatch => {
 }
 
 export const loginThunk = info => dispatch => {
-  return axios.post('http://localhost:8080/api/student/login', {
+  return axios.post('http://' + window.location.hostname  + ':8080/api/student/login', {
     "email": info.email,
     "password": info.password
   }).then(res => {
