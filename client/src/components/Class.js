@@ -17,10 +17,8 @@ const Class = () => {
               Scheduled Time
             </div>
           </div>
-          <div className="extra content">
-            <div className="ui one buttons">
-              <div className="ui basic red button">Drop</div>
-            </div>
+          <div className="ui red bottom attached button">
+            Drop
           </div>
         </div>
         <div className="card">
@@ -32,15 +30,10 @@ const Class = () => {
               <div className="line"></div>
             </div>
           </div>
-          <div className="extra content">
-            <div className="ui one buttons">
-              <Link to='/enroll'>
-                <div className="ui basic green button">
-                  <i className="plus icon" />
-                  Add
-                </div>
-              </Link>
-            </div>
+          <div className="ui green bottom attached button">
+            <Link to='/enroll' style={{color: 'white'}}>
+              <i className="plus icon" /> Add
+            </Link>
           </div>
         </div>
       </div>
