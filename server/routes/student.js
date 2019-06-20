@@ -66,11 +66,11 @@ module.exports = function(app, Student){
 			  }
 			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
 			// console.log(token)
-			res.status(200).json({"payload":token})
+			return res.status(200).json({"payload":token})
 
 		}).catch(err => {
 
-			res.status(400).json({"message":err})
+			return res.status(400).json({"message":err})
 
 		})
 
