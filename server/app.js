@@ -3,14 +3,20 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const routes = require('./routes');
-//require('./routes/schedule')(app)
 
 const Sequelize = require('./sequelize')
 const models = require("./models/index")
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://cunysecond.pillows.dev');
+  const env = process.env.ENV
+  let host = ""
+  if(env === "dev")
+    host = "http://localhost:3000"
+  else if(env === "prod")
+    host = "https://cunysecond.pillows.dev"
+  else
+    host = "http://localhost:3000"
+  res.header('Access-Control-Allow-Origin', host);
   res.header(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
