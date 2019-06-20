@@ -34,14 +34,18 @@ class Profile extends Component {
 
     for(let i = 0; i < schedule.length; i++){
       let currClass = schedule[i].class;
+      let time = currClass.meetInfo.startTime + '-' + currClass.meetInfo.endTime;
+      let days = currClass.meetInfo.days[0] + ' and ' + currClass.meetInfo.days[1];
       table.push(
                   <Class
                     search={false}
-                    classId={currClass.id}
+                    classId={currClass.meetInfo.classId}
                     name={currClass.name}
                     title={currClass.title}
-                    instructor={currClass.instructor}
-                    room={currClass.room}
+                    time={time}
+                    days={days}
+                    instructor={currClass.meetInfo.instructor}
+                    room={currClass.meetInfo.room}
                   />
                 );
     }
