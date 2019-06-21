@@ -43,11 +43,11 @@ class Class extends Component {
                   </div>
                 </div>
               </div>
-              <div className="ui green bottom attached button">
-                <Link to='/enroll' style={{color: 'white'}}>
+              <Link to='/enroll' style={{color: 'white'}}>
+                <div className="ui green bottom attached button">
                   <i className="plus icon" /> Add
-                </Link>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
