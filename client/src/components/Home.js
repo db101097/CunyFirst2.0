@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/CSt.png';
+import logo from '../images/cunySecondSmall.png';
 import '../styles/App.css';
 
 const Home = () => {

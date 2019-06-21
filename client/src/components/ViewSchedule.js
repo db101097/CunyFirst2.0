@@ -3,7 +3,7 @@ import Calendar from './Calendar';
 import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
-import logo from '../images/CSt.png';
+import logo from '../images/cunySecondSmall.png';
 
 class ViewSchedule extends Component {
   onLogout = (event) => {

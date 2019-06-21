@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { searchThunk } from '../thunks';
 import { connect } from 'react-redux';
 import Class from './Class';
-import logo from '../images/CSt.png';
+import logo from '../images/cunySecondSmall.png';
 import '../styles/enroll.css'
 
 class Enroll extends Component {

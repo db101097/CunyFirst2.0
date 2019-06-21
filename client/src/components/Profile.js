@@ -4,7 +4,7 @@ import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
 import Class from './Class';
-import logo from '../images/CSt.png';
+import logo from '../images/cunySecondSmall.png';
 import '../styles/profile.css';
 
 class Profile extends Component {

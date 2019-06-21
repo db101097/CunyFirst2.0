@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { loginThunk } from '../thunks';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import logo from '../images/cst2.png';
+import logo from '../images/cunySecondBig.png';
 import '../styles/register.css';
 
 class Login extends Component {
