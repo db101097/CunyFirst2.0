@@ -73,7 +73,12 @@ class Register extends Component {
     return(
       <div className="App">
         <div className="App-header">
-          <img className="ui medium image" src={logo} alt="logo" style={{marginTop: '-2.5%', marginBottom: '-1%'}}/>
+          <img
+            className="ui medium image"
+            src={logo}
+            alt="logo"
+            style={{marginTop: '-2.5%', marginBottom: '-1%'}}
+          />
           <div style={{width: '25%'}}>
             <div className="ui middle aligned center aligned grid">
               <div className="column">
@@ -151,13 +156,24 @@ class Register extends Component {
                       </div>
                     </div>
                     <Link to='/register'>
-                      <button className="ui fluid large submit button" onClick={this.handleSignUp}>Register</button>
+                      <button
+                        className="ui fluid large submit button"
+                        onClick={this.handleSignUp}
+                      >
+                        Register
+                      </button>
                     </Link>
                   </div>
                 </form>
               </div>
             </div>
-            <button className="ui fluid large submit button" style={{marginTop: '2%'}} onClick={this.handleHomeClick}>Go Back Home</button>
+            <button
+              className="ui fluid large submit button"
+              style={{marginTop: '2%'}}
+              onClick={this.handleHomeClick}
+            >
+              Go Back Home
+            </button>
           </div>
         </div>
       </div>

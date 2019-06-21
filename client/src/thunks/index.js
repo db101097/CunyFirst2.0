@@ -64,11 +64,9 @@ export const addThunk = (classID, studentID) => dispatch => {
   return axios.post('https://api.mwong.io/addClass/' + classID, {
     "studentId": studentID
   }).then(res => {
-    console.log(res);
     window.alert('SUCCESS:\nClass Added')
     window.location.replace('/');
   }).catch(err => {
-    console.log(err);
     window.alert('ERROR:\nClass selected conflicts with your schedule!')
   })
 }
@@ -76,11 +74,9 @@ export const addThunk = (classID, studentID) => dispatch => {
 export const deleteThunk = (classID, studentID) => dispatch => {
   return axios.delete('https://api.mwong.io/deleteClass/' + classID + '/' + studentID)
     .then(res => {
-      console.log(res);
       window.alert('SUCCESS:\nClass Deleted')
       window.location.replace('/');
     }).catch(err => {
-      console.log(err.response);
       window.alert('ERROR:\nUnable to delete class!')
     })
 }
@@ -88,7 +84,6 @@ export const deleteThunk = (classID, studentID) => dispatch => {
 export const getScheduleThunk = studentID => dispatch => {
   return axios.get('https://api.mwong.io/getSchedule/' + studentID)
     .then(res => {
-      console.log(res.data);
       dispatch(getSchedule(res.data));
     })
     .catch(err => {
