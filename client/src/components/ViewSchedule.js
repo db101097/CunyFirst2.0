@@ -13,25 +13,25 @@ class ViewSchedule extends Component {
     window.location.replace('/');
   }
 
-printDocument() {
+  printDocument = (event) => {
    const input = document.getElementById('sus');
    html2canvas(input)
      .then((canvas) => {
        const imgData = canvas.toDataURL('image/png');
         axios.post('http://localhost:8080/exportSchedule', {
                 img:imgData,
-                email:'error@'
+                email: this.props.user.email
           })
-          .then(function (response) {
-            console.log(response);
+          .then(res => {
+            alert('Email Sent Successfully!\nSchedule was sent to the email on file.');
+            console.log(res);
           })
-          .catch(function (error) {
-            alert('Failed to send Email')
-            console.log(error);
+          .catch(err => {
+            alert('Failed to send Email!')
           });
-     })
-   ;
- }
+     });
+  }
+
   onProfile = (event) => {
     window.location.replace('/');
   }
@@ -140,13 +140,15 @@ printDocument() {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.printDocument}>
+              Email Your PDF
+            </a>
+            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
               Profile
             </a>
-            <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
-            <button type="button" onClick={this.printDocument}>PDF</button>
           </div>
         </div>
         <h1 style={{marginTop: '2.5%', marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
@@ -161,7 +163,6 @@ printDocument() {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     schedule: state.getSchedule
   }
