@@ -3,7 +3,7 @@ import Calendar from './Calendar';
 import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
-import logo from '../images/cfirst.gif';
+import logo from '../images/CSt.png';
 
 class ViewSchedule extends Component {
   onLogout = (event) => {
@@ -119,10 +119,10 @@ class ViewSchedule extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+            <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
               Profile
             </a>
-            <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>

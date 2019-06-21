@@ -4,7 +4,7 @@ import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
 import Class from './Class';
-import logo from '../images/cfirst.gif';
+import logo from '../images/CSt.png';
 import '../styles/profile.css';
 
 class Profile extends Component {
@@ -57,7 +57,7 @@ class Profile extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a className="ui item" style={{marginTop: '-5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>

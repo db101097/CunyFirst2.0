@@ -73,7 +73,7 @@ class Register extends Component {
     return(
       <div className="App">
         <div className="App-header">
-          <img className="ui medium image" src={logo} alt="logo" style={{marginTop: '-2.5%'}}/>
+          <img className="ui medium image" src={logo} alt="logo" style={{marginTop: '-2.5%', marginBottom: '-1%'}}/>
           <div style={{width: '25%'}}>
             <div className="ui middle aligned center aligned grid">
               <div className="column">
