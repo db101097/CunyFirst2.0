@@ -16,14 +16,10 @@ class ViewSchedule extends Component {
     this.props.getSchedule(decoded.data.studentId);
   }
 
-
-
   render(){
-
     let table = [];
     let schedule = this.props.schedule;
     if(schedule !== undefined){
-      console.log(schedule);
       for(let i = 0; i < schedule.length; i++){
         let dayOne = {};
         let dayTwo = {};
@@ -106,11 +102,7 @@ class ViewSchedule extends Component {
           default:
             break;
         }
-        // let dayOne = {
-        //   title: schedule[i].class.title,
-        //   start: new Date('2019-06-14T' + schedule[i].class.meetInfo.startTime),
-        //   end: new Date('2019-06-14T' + schedule[i].class.meetInfo.endTime)
-        // }
+
         table.push(dayOne);
         table.push(dayTwo)
       }
