@@ -63,13 +63,13 @@ class Profile extends Component {
           </div>
         </div>
         <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
-        <h1> Your Classes </h1>
+        <h1 style={{marginTop: '0%'}}> Your Classes </h1>
         <div className="ui grid container" style={{marginTop: '1%'}}>
           {table}
           <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
-          <button className="ui button" style={{marginTop: '2%'}}> View Full Schedule </button>
+          <button className="ui button" style={{marginTop: '2%', marginBottom: '2%'}}> View Full Schedule </button>
         </Link>
       </div>
     );
