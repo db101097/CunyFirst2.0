@@ -20,12 +20,13 @@ printDocument() {
        const imgData = canvas.toDataURL('image/png');
         axios.post('http://localhost:8080/exportSchedule', {
                 img:imgData,
-                email:'db101097@gmail.com'
+                email:'error@'
           })
           .then(function (response) {
             console.log(response);
           })
           .catch(function (error) {
+            alert('Failed to send Email')
             console.log(error);
           });
      })

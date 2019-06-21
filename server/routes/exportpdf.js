@@ -19,9 +19,9 @@ module.exports=function(app){
             doc.pipe(fs.createWriteStream('./pdfs/file.pdf'));
             doc.image(f, 0, 15, {width: 600,height:400});
             doc.end()
-            console.log(req.body)
+           // console.log(req.body)
             
-            transporter.sendMail({
+            let result=await transporter.sendMail({
               from: 'secondcuny@gmail.com',
               to: req.body.email,
               subject: 'Here Is Your Schedule',
@@ -30,21 +30,15 @@ module.exports=function(app){
                 filename: 'schedule.pdf',
                 path: './pdfs/file.pdf',
                 contentType: 'application/pdf'
-              }],
-              function(err, info) {
-                if (err) {
-                  console.error(err);
-                  res.status(400).send(err);
-                } else {
-                  console.log(info);
-                  res.status(200).send('success');
-                }
-              }
-            });
-            //res.status(200).send('success');
-            }catch(error){
+              }]
+            })
+            console.log(result)
+            if(result!=null && result.rejected.length===0){
+              res.status(200).send('success');
+            }
+        }catch(error){
                 console.log(error)
-                res.status(400).send(error)
+                res.status(400).send('Failed to send email')
         }
     })
 }
