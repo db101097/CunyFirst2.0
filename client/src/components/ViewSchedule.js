@@ -127,7 +127,7 @@ class ViewSchedule extends Component {
             </a>
           </div>
         </div>
-        <h1 style={{marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
+        <h1 style={{marginTop: '2.5%', marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
         <div className='App'>
           <div className="App-header">
             <Calendar events={table}/>
