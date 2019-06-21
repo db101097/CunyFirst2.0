@@ -9,20 +9,46 @@ function createResponse(code,body){
     console.log(response)
     return response
 }
+
+async function updateStatus(classDetail,classId) {
+    try{
+        let update=await classDetail.findOne({
+            where:{
+                id:classId,
+            }
+        })
+        update.status="CLOSED"
+        update.save()   
+        return true
+    }catch(error){
+        return false
+    }
+}
 /*
     function to find if class exist by checking if classId exist
 */
-async function findClass (Class,meetInfo,classId){
+async function findClass (Class,classAvailability,classDetail,classId){
     try{
         let result=await Class.findOne({
             where:{
                 id:classId,
             },
-            include:[meetInfo]
+            include:[classAvailability]
         })
          if(result===null || (result!=null && result.length===0)){
              return ('empty')
-         }else{
+         }else if(result.classAvailability.enrollmentTotal+1>result.classAvailability.capacity){
+                return false
+         }else if(result.classAvailability.enrollmentTotal+1===result.classAvailability.capacity){
+                updateStatus(classDetail,classId) 
+                result.classAvailability.enrollmentTotal+=1
+                result.classAvailability.save()
+                return result;
+         }
+         else{
+             console.log("result",result.classAvailability)
+             result.classAvailability.enrollmentTotal+=1
+             result.classAvailability.save()
              return result;
          }
     }catch(error){
@@ -85,13 +111,18 @@ try{
     class
 */
 
-async function insertClass(schedule,Student,meetInfo,Class,sid,cid){
+async function insertClass(schedule,Student,classAvailability,meetInfo,classDetail,Class,sid,cid){
     try{
-        let classExist=await findClass(Class,meetInfo,cid);
+        let classExist=await findClass(Class,classAvailability,classDetail,cid);
+        console.log("classExist: ", classExist)
         let studentExist= await findStudent(Student,sid)
         let conflictExist=await findConflict(schedule,Class,meetInfo,cid,sid)
+        console.log("classExist",classExist)
+        console.log("student: ",studentExist)
         if(classExist==='empty'|| classExist==='error' ||studentExist==='empty'||studentExist==='error'){
             return createResponse(400,'class or student does not exist')
+        }else if (classExist===false){
+            return createResponse(400,'class at capacity')
         }else if(conflictExist===true ){
             return createResponse(400,"class conflicts or already exist")
         }else{
@@ -132,9 +163,9 @@ async function deleteClass(Student,schedule,Class,cid,sid){
     }
 }
 
-module.exports=function(app,Class,meetInfo,schedule,Student){
-
-    // getSchedul route to get all class schedule that matches the studentId
+module.exports=function(app,Class,meetInfo,schedule,Student,classAvailability,classDetail){
+    
+    // getSchedule route to get all class schedule that matches the studentId
     app.get('/getSchedule/:studentId',async(req,res)=>{
         try{
             let sid=req.params.studentId
@@ -162,7 +193,7 @@ module.exports=function(app,Class,meetInfo,schedule,Student){
     app.post('/addClass/:classId',async(req,res)=>{
         const sid=req.body.studentId;
         const cid=req.params.classId;
-        let result=await insertClass(schedule,Student,meetInfo,Class,sid,cid);
+        let result=await insertClass(schedule,Student,classAvailability,meetInfo,classDetail,Class,sid,cid);
         console.log("result",result)
         res.status(result.status).send(result.data)
 

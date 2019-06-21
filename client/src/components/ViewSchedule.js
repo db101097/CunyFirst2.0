@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Calendar from './Calendar';
+import html2canvas from 'html2canvas';
+import axios from 'axios';
 import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
@@ -11,6 +13,25 @@ class ViewSchedule extends Component {
     window.location.replace('/');
   }
 
+printDocument() {
+   const input = document.getElementById('sus');
+   html2canvas(input)
+     .then((canvas) => {
+       const imgData = canvas.toDataURL('image/png');
+        axios.post('http://localhost:8080/exportSchedule', {
+                img:imgData,
+                email:'error@'
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            alert('Failed to send Email')
+            console.log(error);
+          });
+     })
+   ;
+ }
   onProfile = (event) => {
     window.location.replace('/');
   }
@@ -125,11 +146,12 @@ class ViewSchedule extends Component {
             <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
+            <button type="button" onClick={this.printDocument}>PDF</button>
           </div>
         </div>
         <h1 style={{marginTop: '2.5%', marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
         <div className='App'>
-          <div className="App-header">
+          <div id='sus' className="App-header">
             <Calendar events={table}/>
           </div>
         </div>
