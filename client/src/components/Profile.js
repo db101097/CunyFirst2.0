@@ -57,7 +57,12 @@ class Profile extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a
+              className="ui item"
+              style={{marginTop: '-5%', color: 'white', fontSize: '17px'}}
+              onClick={this.onLogout}
+              href='/'
+            >
               Logout
             </a>
           </div>
@@ -69,7 +74,12 @@ class Profile extends Component {
           <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
-          <button className="ui button" style={{marginTop: '2%', marginBottom: '2%'}}> View Full Schedule </button>
+          <button
+            className="ui button"
+            style={{marginTop: '2%', marginBottom: '2%'}}
+          >
+            View Full Schedule
+          </button>
         </Link>
       </div>
     );

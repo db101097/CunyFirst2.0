@@ -15,7 +15,7 @@ class Enroll extends Component {
     }
 
     this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubjectClick = this.onSubjectClick.bind(this);
     this.handleSubjectClick = this.handleSubjectClick.bind(this);
@@ -34,20 +34,16 @@ class Enroll extends Component {
     this.setState({subjectSearchValue: e.target.value});
   }
 
-  onKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      console.log(this.state.searchedValue);
+  onKeyUp = (event) => {
+    if(this.state.searchedValue.length > 2)
       this.props.search(this.state.searchedValue);
-    }
   }
 
   onSubmit = (event) => {
-    console.log(this.state.searchedValue);
     this.props.search(this.state.searchedValue);
   }
 
   onSubjectClick = (event) => {
-    console.log(this.state.subjectSearchValue);
     this.props.search(this.state.subjectSearchValue);
   }
 
@@ -85,10 +81,18 @@ class Enroll extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-          <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+          <a className="ui item"
+            style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}}
+            onClick={this.onProfile}
+            href='/'
+          >
             Profile
           </a>
-          <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+          <a className="ui item"
+            style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}}
+            onClick={this.onLogout}
+            href='/'
+          >
             Logout
           </a>
           </div>
@@ -99,7 +103,7 @@ class Enroll extends Component {
             type="text"
             placeholder="Search..."
             onChange={this.handleSearchInput}
-            onKeyPress={this.onKeyPress}
+            onKeyUp={this.onKeyUp}
           />
           <i className="inverted circular search link icon" onClick={this.onSubmit} />
         </div>

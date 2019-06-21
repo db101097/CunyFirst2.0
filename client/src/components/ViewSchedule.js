@@ -24,7 +24,6 @@ class ViewSchedule extends Component {
           })
           .then(res => {
             alert('Email Sent Successfully!\nSchedule was sent to the email on file.');
-            console.log(res);
           })
           .catch(err => {
             alert('Failed to send Email!')
@@ -140,18 +139,35 @@ class ViewSchedule extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.printDocument}>
+            <a
+              className="ui item"
+              style={{marginTop: '-1%', color: 'white', fontSize: '17px'}}
+              onClick={this.printDocument}
+              href='/schedule'
+            >
               Email Your PDF
             </a>
-            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+            <a
+              className="ui item"
+              style={{marginTop: '-1%', color: 'white', fontSize: '17px'}}
+              onClick={this.onProfile}
+              href='/'
+            >
               Profile
             </a>
-            <a className="ui item" style={{marginTop: '-1%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a
+              className="ui item"
+              style={{marginTop: '-1%', color: 'white', fontSize: '17px'}}
+              onClick={this.onLogout}
+              href='/'
+            >
               Logout
             </a>
           </div>
         </div>
-        <h1 style={{marginTop: '2.5%', marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
+        <h1 style={{marginTop: '2.5%', marginBottom: '-5%'}}>
+          {this.props.user.firstName} {this.props.user.lastName}'s Calender
+        </h1>
         <div className='App'>
           <div id='sus' className="App-header">
             <Calendar events={table}/>
