@@ -11,6 +11,10 @@ class ViewSchedule extends Component {
     window.location.replace('/');
   }
 
+  onProfile = (event) => {
+    window.location.replace('/');
+  }
+
   componentDidMount(){
     let decoded = decode(localStorage.token);
     this.props.getSchedule(decoded.data.studentId);
@@ -115,12 +119,15 @@ class ViewSchedule extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+              Profile
+            </a>
+            <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>
         </div>
-        <h1 style={{marginBottom: '-5%'}}>Your Calender</h1>
+        <h1 style={{marginBottom: '-5%'}}>{this.props.user.firstName} {this.props.user.lastName}'s Calender</h1>
         <div className='App'>
           <div className="App-header">
             <Calendar events={table}/>
