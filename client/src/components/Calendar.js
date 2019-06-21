@@ -18,13 +18,11 @@ class MyCalendar extends Component {
   state = {
     events: [
       {
-        id: 1,
         title: 'CSCI 499',
         start: date,
         end: date2
       },
       {
-        id: 2,
         title: 'CSCI 393',
         start: date3,
         end: date4
@@ -36,10 +34,10 @@ class MyCalendar extends Component {
       <div>
         <Calendar
           localizer={localizer}
-          events={this.state.events}
-          step={15}
-          timeslots={8}
-          style={{ height: "70vh", width: '800px', fontSize: '9.95px', color: 'black' }}
+          events={this.props.events}
+          step={10}
+          timeslots={6}
+          style={{ height: "70vh", width: '1000px', fontSize: '13px', color: 'black' }}
           defaultView={Views.WEEK}
           defaultDate={new Date()}
         />

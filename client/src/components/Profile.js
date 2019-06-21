@@ -4,7 +4,7 @@ import { getScheduleThunk } from '../thunks';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode'
 import Class from './Class';
-import logo from '../images/cfirst.gif';
+import logo from '../images/cunySecondSmall.png';
 import '../styles/profile.css';
 
 class Profile extends Component {
@@ -50,8 +50,6 @@ class Profile extends Component {
                 );
     }
 
-
-
     return(
       <div className="top-border">
         <div className="ui secondary  menu">
@@ -59,19 +57,19 @@ class Profile extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            <a className="ui item" style={{marginTop: '-5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
               Logout
             </a>
           </div>
         </div>
         <h1> {this.props.user.firstName} {this.props.user.lastName}'s Profile</h1>
-        <h1> Your Classes </h1>
+        <h1 style={{marginTop: '0%'}}> Your Classes </h1>
         <div className="ui grid container" style={{marginTop: '1%'}}>
           {table}
           <Class placeholder={true}/>
         </div>
         <Link to='/schedule'>
-          <button className="ui button" style={{marginTop: '2%'}}> View Full Schedule </button>
+          <button className="ui button" style={{marginTop: '2%', marginBottom: '2%'}}> View Full Schedule </button>
         </Link>
       </div>
     );
