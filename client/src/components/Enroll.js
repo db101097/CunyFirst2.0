@@ -22,6 +22,10 @@ class Enroll extends Component {
     this.onLogout = this.onLogout.bind(this);
   }
 
+  onProfile = (event) => {
+    window.location.replace('/');
+  }
+
   handleSearchInput = (e) => {
     this.setState({searchedValue: e.target.value});
   }
@@ -81,9 +85,12 @@ class Enroll extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/' >
-              Logout
-            </a>
+          <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+            Profile
+          </a>
+          <a className="ui item" style={{marginTop: '-10%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            Logout
+          </a>
           </div>
         </div>
         <h1 style={{color: 'black'}}> Search for a class </h1>
@@ -110,7 +117,7 @@ class Enroll extends Component {
           <i className="search icon" />
           Search
         </button>
-        <div className="ui grid container" style={{marginTop: '1%'}}>
+        <div className="ui grid container" style={{marginTop: '1%', marginBottom: '1%'}}>
           {table}
         </div>
       </div>
