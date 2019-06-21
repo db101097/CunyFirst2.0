@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { searchThunk } from '../thunks';
 import { connect } from 'react-redux';
 import Class from './Class';
-import logo from '../images/cfirst.gif';
+import logo from '../images/cunySecondSmall.png';
 import '../styles/enroll.css'
 
 class Enroll extends Component {
@@ -20,6 +20,10 @@ class Enroll extends Component {
     this.onSubjectClick = this.onSubjectClick.bind(this);
     this.handleSubjectClick = this.handleSubjectClick.bind(this);
     this.onLogout = this.onLogout.bind(this);
+  }
+
+  onProfile = (event) => {
+    window.location.replace('/');
   }
 
   handleSearchInput = (e) => {
@@ -81,9 +85,12 @@ class Enroll extends Component {
             <img className="ui small image" src={logo} alt="CUNYFirst" />
           </div>
           <div className="right menu">
-            <a className="ui item" style={{marginTop: '-20%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/' >
-              Logout
-            </a>
+          <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onProfile} href='/'>
+            Profile
+          </a>
+          <a className="ui item" style={{marginTop: '-2.5%', color: 'white', fontSize: '17px'}} onClick={this.onLogout} href='/'>
+            Logout
+          </a>
           </div>
         </div>
         <h1 style={{color: 'black'}}> Search for a class </h1>
@@ -110,7 +117,7 @@ class Enroll extends Component {
           <i className="search icon" />
           Search
         </button>
-        <div className="ui grid container" style={{marginTop: '1%'}}>
+        <div className="ui grid container" style={{marginTop: '1%', marginBottom: '1%'}}>
           {table}
         </div>
       </div>

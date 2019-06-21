@@ -27,7 +27,7 @@ class App extends Component {
             }/>
             <Route path ="/schedule" exact render = {
               () => {
-                return (<Schedule />);
+                return (<Schedule user={this.props.currentUser}/>);
               }
             }/>
             <Route path ="/enroll" exact render = {

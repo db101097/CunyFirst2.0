@@ -66,7 +66,7 @@ module.exports = function(app, Student){
 			  }
 			}, "cunyfirst-sucks", { expiresIn: 60 * 60 });
 			console.log("login token",token)
-			// return res.status(200).json({"payload":token})
+			return res.status(200).json({"payload":token})
 
 		}).catch(err => {
 			console.log("login error", err);
