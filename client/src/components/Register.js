@@ -3,7 +3,7 @@ import axios from 'axios';
 import { registerThunk } from '../thunks';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import logo from '../images/cunylogo.png';
+import logo from '../images/cst2.png';
 import '../styles/register.css';
 
 class Register extends Component {
@@ -73,7 +73,7 @@ class Register extends Component {
     return(
       <div className="App">
         <div className="App-header">
-          <img className="ui medium image" src={logo} alt="logo" style={{marginBottom: '1%'}}/>
+          <img className="ui medium image" src={logo} alt="logo" style={{marginTop: '-2.5%'}}/>
           <div style={{width: '25%'}}>
             <div className="ui middle aligned center aligned grid">
               <div className="column">
