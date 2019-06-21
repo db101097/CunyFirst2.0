@@ -16,7 +16,8 @@ printDocument() {
      .then((canvas) => {
        const imgData = canvas.toDataURL('image/png');
         axios.post('http://localhost:8080/exportSchedule', {
-                img:imgData
+                img:imgData,
+                email:'db101097@gmail.com'
           })
           .then(function (response) {
             console.log(response);
@@ -24,10 +25,6 @@ printDocument() {
           .catch(function (error) {
             console.log(error);
           });
-      // const pdf = new jsPDF();
-       //pdf.addImage(imgData, 'JPEG', 0, 0);
-       //pdf.output('dataurlnewwindow');
-       //pdf.save("download.pdf");
      })
    ;
  }
