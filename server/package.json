@@ -23,6 +23,6 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "bcrypt": "^3.0.0"
+    "bcrypt": "^5.0.0"
   }
 }
